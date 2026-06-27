@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>POLICITY — Navbar-Optionen F–J · Batch 2</title>
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=sora:400,500,600,700,800|inter:400,500,600" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1d6ff2;--blue-deep:#1657d6;--turq:#06b6d4;--turq-deep:#0e9bb5;
+    --coral:#ff6b5e;--coral-deep:#f5564a;--ink:#0f172a;--slate:#475569;--muted:#64748b;
+    --line:#e6edf5;--paper:#fff;--soft:#f4f8fc;
+    --grad:linear-gradient(135deg,var(--blue),var(--turq));
+    --grad-coral:linear-gradient(135deg,#ff8a5e,var(--coral));
+    --sora:'Sora',system-ui,sans-serif;--inter:'Inter',system-ui,sans-serif;
+    --ease:cubic-bezier(.22,1,.36,1);
+    --shadow:0 18px 50px -24px rgba(15,73,153,.4);--shadow-sm:0 8px 24px -14px rgba(15,73,153,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--inter);background:var(--soft);color:var(--ink);overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--blue);color:#fff}
+
+  .intro{padding:clamp(2.5rem,6vw,5rem) clamp(1.25rem,5vw,4rem) clamp(1.5rem,3vw,2.5rem);max-width:1100px;margin-inline:auto;text-align:center}
+  .kicker{font-family:var(--sora);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--blue);font-weight:600}
+  .intro h1{font-family:var(--sora);font-weight:800;font-size:clamp(2rem,1.2rem+4vw,3.8rem);line-height:1.05;margin:.7rem 0 .9rem;letter-spacing:-.02em}
+  .intro h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .intro p{color:var(--muted);max-width:60ch;margin-inline:auto;font-size:clamp(.95rem,.9rem+.3vw,1.05rem);line-height:1.7}
+  .intro .hint{margin-top:1.2rem;font-size:.82rem;color:#94a3b8}.intro .hint b{color:var(--coral)}
+  .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--turq);margin:0 .7rem;vertical-align:middle}
+
+  .opt-label{position:sticky;top:0;z-index:60;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;padding:.85rem clamp(1.25rem,5vw,4rem);background:var(--ink);color:#fff}
+  .opt-tag{font-family:var(--sora);font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--grad);padding:.34rem .7rem;border-radius:6px}
+  .opt-name{font-family:var(--sora);font-size:1.2rem;font-weight:600}
+  .opt-meta{margin-left:auto;font-size:.74rem;color:#9fb2cc;max-width:48ch}.opt-meta b{color:#7fd6e6;font-weight:600}
+
+  .stage{position:relative;height:150vh}
+  .sentinel{position:absolute;top:0;height:80px;width:100%;pointer-events:none}
+  .hero{position:sticky;top:0;height:100vh;min-height:100svh;overflow:hidden;display:grid;background:var(--soft)}
+  .hero-content{position:relative;z-index:5;align-self:center;padding:0 clamp(1.5rem,6vw,7rem);max-width:1320px;margin-inline:auto;width:100%}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sora);font-size:.74rem;font-weight:600;color:var(--blue);background:#eaf2ff;border:1px solid #d4e4ff;padding:.4rem .8rem;border-radius:999px;opacity:0;transform:translateY(14px);transition:all .8s var(--ease) .2s}
+  .hero-h{font-family:var(--sora);font-weight:800;font-size:clamp(2.3rem,1.4rem+4.6vw,5rem);line-height:1.04;letter-spacing:-.03em;margin:1rem 0;max-width:15ch;opacity:0;transform:translateY(22px);transition:all .9s var(--ease) .32s}
+  .hero-h .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-sub{color:var(--slate);max-width:44ch;font-size:clamp(1rem,.95rem+.3vw,1.15rem);line-height:1.6;opacity:0;transform:translateY(18px);transition:all .85s var(--ease) .48s}
+  .hero.in .hero-eyebrow,.hero.in .hero-h,.hero.in .hero-sub{opacity:1;transform:none}
+  .hero-cta-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.8rem;opacity:0;transform:translateY(16px);transition:all .85s var(--ease) .6s}
+  .hero.in .hero-cta-row{opacity:1;transform:none}
+  .mesh{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5}
+  .blob.b1{width:42vw;height:42vw;background:#bfe6ff;top:-12vw;right:-8vw}
+  .blob.b2{width:34vw;height:34vw;background:#d6f5ee;bottom:-12vw;left:-6vw}
+  .blob.b3{width:18vw;height:18vw;background:#ffd9d2;top:30%;left:40%}
+  .grid-lines{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(circle at 70% 40%,#000,transparent 70%);opacity:.5}
+  .scroll-cue{position:absolute;bottom:2rem;left:clamp(1.5rem,6vw,7rem);z-index:5;display:flex;align-items:center;gap:.7rem;color:var(--muted);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-family:var(--sora);font-weight:500}
+  .scroll-cue .arr{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;animation:bob 2s var(--ease) infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+  .nav-links{display:flex;align-items:center;gap:clamp(1.1rem,2vw,2rem);list-style:none}
+  .nav-link{position:relative;font-size:.92rem;font-weight:500;color:var(--slate);padding:.4rem 0;transition:color .3s var(--ease)}
+  .nav-link::after{content:"";position:absolute;left:0;bottom:-2px;width:100%;height:2px;border-radius:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+  .nav-link:hover{color:var(--ink)}.nav-link:hover::after{transform:scaleX(1)}
+  .cta{font-family:var(--sora);font-size:.9rem;font-weight:600;cursor:pointer;border:0;display:inline-flex;align-items:center;gap:.5rem}
+  .cta-fill{background:var(--grad-coral);color:#fff;padding:.78rem 1.4rem;border-radius:12px;box-shadow:0 12px 26px -12px rgba(245,86,74,.7);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+  .cta-fill:hover{transform:translateY(-2px);box-shadow:0 18px 34px -12px rgba(245,86,74,.8)}
+  .cta-ghost{background:#fff;color:var(--ink);border:1px solid var(--line);padding:.78rem 1.4rem;border-radius:12px;transition:border-color .3s,transform .3s}
+  .cta-ghost:hover{border-color:var(--blue);transform:translateY(-2px)}
+  .cta .arrow{transition:transform .3s var(--ease)}.cta:hover .arrow{transform:translateX(4px)}
+  .brand{font-family:var(--sora);font-weight:700;font-size:1.3rem;letter-spacing:-.02em;color:var(--ink);display:inline-flex;align-items:center;gap:.6rem}
+  .brand .mark{width:34px;height:34px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800;font-size:1rem;box-shadow:var(--shadow-sm)}
+  .burger{display:none;width:44px;height:44px;border:1px solid var(--line);background:#fff;border-radius:11px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+  .burger span{width:20px;height:2px;border-radius:2px;background:var(--ink);transition:.32s var(--ease)}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* ===== F — Centered logo symmetric ===== */
+  .navF{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);transition:box-shadow .4s var(--ease)}
+  .navF.solid{box-shadow:var(--shadow-sm)}
+  .navF-inner{max-width:1280px;margin-inline:auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1.5rem;padding:clamp(1rem,1.7vw,1.4rem) clamp(1.5rem,6vw,4rem)}
+  .navF .brand{grid-column:2;justify-self:center;font-size:1.4rem}
+  .navF .l{justify-self:start}.navF .r{justify-self:end;display:flex;align-items:center;gap:1.4rem}
+  .navF .burger-wrap{display:none}
+
+  /* ===== G — Native app bottom bar ===== */
+  .navG-top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);transition:box-shadow .4s}
+  .navG-top.solid{box-shadow:var(--shadow-sm)}
+  .navG-top-inner{max-width:1280px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;padding:clamp(1rem,1.6vw,1.3rem) clamp(1.5rem,6vw,4rem)}
+  .navG-top .nav-links{position:absolute;left:50%;transform:translateX(-50%)}
+  .tabbar{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);z-index:40;display:flex;align-items:flex-end;gap:.4rem;
+    background:rgba(255,255,255,.9);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:22px;padding:.5rem .6rem;box-shadow:var(--shadow)}
+  .tab{display:flex;flex-direction:column;align-items:center;gap:.2rem;width:64px;padding:.5rem 0;border-radius:14px;color:var(--muted);font-family:var(--sora);font-size:.64rem;font-weight:500;transition:.25s var(--ease)}
+  .tab .ti{font-size:1.2rem}
+  .tab:hover,.tab.active{color:var(--blue);background:#eaf2ff}
+  .tab.fab{width:auto}
+  .tab .fab-c{width:54px;height:54px;border-radius:50%;background:var(--grad-coral);color:#fff;display:grid;place-items:center;font-size:1.5rem;margin-top:-22px;box-shadow:0 14px 26px -10px rgba(245,86,74,.8);transition:transform .3s var(--ease)}
+  .tab.fab:hover .fab-c{transform:translateY(-3px) scale(1.04)}
+
+  /* ===== H — Command / search-first ===== */
+  .navH{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);transition:box-shadow .4s}
+  .navH.solid{box-shadow:var(--shadow-sm)}
+  .navH-inner{max-width:1280px;margin-inline:auto;display:flex;align-items:center;gap:1.4rem;padding:clamp(.9rem,1.5vw,1.2rem) clamp(1.5rem,6vw,4rem)}
+  .search{flex:1;max-width:520px;margin-inline:auto;display:flex;align-items:center;gap:.6rem;background:var(--soft);border:1.5px solid var(--line);border-radius:14px;padding:.55rem .6rem .55rem 1rem;transition:.3s var(--ease)}
+  .search:focus-within{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(29,111,242,.12)}
+  .search .ic{color:var(--muted);font-size:1.05rem}
+  .search input{border:0;outline:0;background:transparent;flex:1;font-family:var(--inter);font-size:.92rem;color:var(--ink)}
+  .search input::placeholder{color:#9fb0c6}
+  .search .go{background:var(--grad);color:#fff;border:0;border-radius:10px;padding:.5rem .9rem;font-family:var(--sora);font-weight:600;font-size:.82rem;cursor:pointer}
+  .navH .links-min{display:flex;gap:1.2rem}
+
+  /* ===== I — Two-tier category ribbon ===== */
+  .navI{position:sticky;top:0;z-index:50}
+  .navI-t1{background:rgba(255,255,255,.92);backdrop-filter:blur(12px)}
+  .navI-t1-inner{max-width:1280px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;padding:clamp(.9rem,1.5vw,1.2rem) clamp(1.5rem,6vw,4rem)}
+  .navI-t2{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);transition:box-shadow .4s}
+  .navI.solid .navI-t2{box-shadow:var(--shadow-sm)}
+  .chips{max-width:1280px;margin-inline:auto;display:flex;gap:.5rem;padding:.6rem clamp(1.5rem,6vw,4rem);overflow-x:auto;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none;display:inline-flex;align-items:center;gap:.4rem;font-family:var(--sora);font-size:.82rem;font-weight:500;color:var(--slate);background:var(--soft);border:1px solid var(--line);padding:.45rem .9rem;border-radius:999px;transition:.25s var(--ease);cursor:pointer}
+  .chip:hover{color:var(--ink);border-color:#cfe0f5}
+  .chip.active{background:var(--grad);color:#fff;border-color:transparent}
+
+  /* ===== J — Soft neubrutalism card ===== */
+  .stageJ .hero{background:#eef5ff}
+  .navJ{position:sticky;top:clamp(.7rem,1.8vw,1.2rem);z-index:50;padding:0 clamp(1rem,4vw,3rem);transition:top .4s var(--ease)}
+  .navJ-card{max-width:1180px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:1.2rem;
+    background:#fff;border:2px solid var(--ink);border-radius:18px;padding:.6rem .7rem .6rem 1.2rem;
+    box-shadow:5px 5px 0 var(--blue);transition:box-shadow .3s var(--ease),transform .3s var(--ease)}
+  .navJ.solid .navJ-card{box-shadow:3px 3px 0 var(--ink);transform:translate(1px,1px)}
+  .navJ .brand .mark{border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink)}
+  .navJ .nav-link{font-family:var(--sora);font-weight:600;color:var(--ink);padding:.45rem .8rem;border-radius:10px;transition:.2s var(--ease)}
+  .navJ .nav-link::after{display:none}
+  .navJ .nav-link:hover{background:#eaf2ff;box-shadow:2px 2px 0 var(--blue)}
+  .navJ .cta-fill{border:2px solid var(--ink);border-radius:12px;box-shadow:3px 3px 0 var(--ink);background:var(--coral)}
+  .navJ .cta-fill:hover{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+
+  .notes{background:#fff;border-top:1px solid var(--line);padding:clamp(1.6rem,3vw,2.4rem) clamp(1.5rem,6vw,7rem)}
+  .notes-grid{max-width:1320px;margin-inline:auto;display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+  .note h4{font-family:var(--sora);font-weight:700;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem}
+  .note p{font-size:.88rem;line-height:1.6;color:var(--slate)}.note p b{color:var(--ink);font-weight:600}
+
+  .sheet{position:fixed;inset:0;z-index:90;background:#fff;display:flex;flex-direction:column;padding:5rem clamp(1.5rem,8vw,4rem) 2rem;opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .35s var(--ease)}
+  .sheet.open{opacity:1;visibility:visible;transform:none}
+  .sheet a{font-family:var(--sora);font-size:1.5rem;font-weight:600;padding:.7rem 0;border-bottom:1px solid var(--line);color:var(--ink)}
+  .sheet .sheet-cta{margin-top:1.6rem;justify-content:center}
+  .sheet-close{position:absolute;top:1.4rem;right:1.4rem;width:46px;height:46px;border:1px solid var(--line);background:#fff;border-radius:11px;font-size:1.4rem;cursor:pointer;color:var(--ink)}
+  .sheet-brand{position:absolute;top:1.5rem;left:clamp(1.5rem,8vw,4rem)}
+
+  .foot{padding:clamp(2.5rem,6vw,5rem) clamp(1.5rem,6vw,4rem);text-align:center;background:var(--soft);border-top:1px solid var(--line)}
+  .foot .verdict{font-family:var(--sora);font-weight:800;font-size:clamp(1.4rem,1rem+2vw,2.2rem);letter-spacing:-.02em;margin-bottom:1rem}
+  .foot .verdict .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .foot p{color:var(--muted);max-width:62ch;margin:.4rem auto;font-size:.92rem;line-height:1.7}.foot p b{color:var(--coral)}
+  .foot .legal{font-size:.74rem;color:#94a3b8;margin-top:1.5rem}.foot .legal b{color:var(--blue)}
+
+  @media (max-width:880px){
+    .nav-links,.opt-meta,.navG-top .nav-links,.navH .links-min,.search{display:none}
+    .burger,.navF .burger-wrap{display:flex}
+    .navF .r .nav-links{display:none}
+    .navF-inner{grid-template-columns:auto 1fr auto}.navF .brand{grid-column:1;justify-self:start}.navF .l{display:none}
+    .navH-inner .search{display:flex}
+    .tabbar{left:1rem;right:1rem;transform:none;width:auto;justify-content:space-between;bottom:1rem}
+    .tab{width:auto;flex:1}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+  <header class="intro">
+    <div class="kicker">POLICITY · Navbar / Header · Batch 2 (F–J)</div>
+    <h1>Noch <span class="g">fünf Richtungen</span> mehr.</h1>
+    <p>Fünf zusätzliche, strukturell andere Header-Konzepte: zentriertes Logo, native App-Bottom-Bar, Such-/Command-Leiste, Kategorie-Ribbon und ein verspielter Soft-Neubrutalism-Card-Header. Alle live — reinscrollen, hovern, Mobile testen.</p>
+    <div class="hint">Platzhalter-Daten · Sora/Inter via Bunny (EU/DSGVO)<span class="dot"></span>Wähle mit <b>„Weiter / Option X"</b></div>
+  </header>
+
+  <!-- F -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option F</span><span class="opt-name">Centered Logo · Symmetrisch</span>
+      <span class="opt-meta">Logo mittig, Navigation symmetrisch links/rechts, CTA rechts · <b>ausbalanciert, redaktionell-clean.</b></span></div>
+    <div class="stage"><div class="sentinel" data-nav="navF"></div>
+      <nav class="navF" id="navF"><div class="navF-inner">
+        <ul class="nav-links l"><li><a class="nav-link" href="#">Versicherungen</a></li><li><a class="nav-link" href="#">So geht's</a></li></ul>
+        <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+        <div class="r"><ul class="nav-links"><li><a class="nav-link" href="#">Über uns</a></li></ul>
+          <a class="cta cta-fill" href="#">Beraten lassen <span class="arrow">→</span></a>
+          <button class="burger burger-wrap" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button></div>
+      </div></nav>
+      <div class="hero"><div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="grid-lines"></span></div>
+        <div class="hero-content"><div class="hero-eyebrow">⚖️ Ausgewogen &amp; transparent</div>
+          <h1 class="hero-h">Im <span class="g">Gleichgewicht</span><br>abgesichert.</h1>
+          <p class="hero-sub">Ein klarer, ruhiger Auftritt, der Seriosität ausstrahlt — ohne steif zu wirken.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a><a class="cta cta-ghost" href="#">So geht's</a></div></div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div></div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p>Symmetrie wirkt <b>vertrauenswürdig &amp; geordnet</b> — Premium-Anmutung trotz heller, freundlicher Palette.</p></div>
+      <div class="note"><h4>Animation</h4><p>Underline-Reveals beidseitig, Schatten beim Scroll. Logo kann beim Scroll dezent verkleinern.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Logo wandert nach links, beide Link-Gruppen → Burger/Sheet, CTA bleibt.</p></div>
+    </div></div>
+  </section>
+
+  <!-- G -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option G</span><span class="opt-name">Native App Bottom-Bar</span>
+      <span class="opt-meta">Schlanke Top-Bar + schwebende <b>Tab-Bar unten mit Coral-FAB</b> — fühlt sich an wie eine echte Mobile-App.</span></div>
+    <div class="stage"><div class="sentinel" data-nav="navGtop"></div>
+      <nav class="navG-top" id="navGtop"><div class="navG-top-inner">
+        <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+        <ul class="nav-links"><li><a class="nav-link" href="#">Versicherungen</a></li><li><a class="nav-link" href="#">So geht's</a></li><li><a class="nav-link" href="#">Über uns</a></li></ul>
+        <a class="cta cta-fill" href="#">Beraten lassen <span class="arrow">→</span></a>
+      </div></nav>
+      <div class="hero"><div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="grid-lines"></span></div>
+        <div class="hero-content"><div class="hero-eyebrow">📱 Wie deine Lieblings-App</div>
+          <h1 class="hero-h">Tippen.<br><span class="g">Abgesichert.</span></h1>
+          <p class="hero-sub">Navigation, die sich anfühlt wie eine native App — vertraut, schnell, immer griffbereit.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a></div></div>
+        <nav class="tabbar">
+          <a class="tab active"><span class="ti">🏠</span>Start</a>
+          <a class="tab"><span class="ti">🛡️</span>Sparten</a>
+          <a class="tab fab"><span class="fab-c">＋</span></a>
+          <a class="tab"><span class="ti">💬</span>Chat</a>
+          <a class="tab"><span class="ti">👤</span>Profil</a>
+        </nav>
+      </div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p>Stärkstes „App-Gefühl" überhaupt. Die <b>Bottom-Bar mit FAB</b> ist auf Mobile sofort vertraut — Daumen-freundlich.</p></div>
+      <div class="note"><h4>Animation</h4><p>Tabs mit aktivem Pill-Zustand, FAB hebt &amp; skaliert bei Hover. Top-Bar mit Scroll-Schatten.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Bottom-Bar spannt mobil über die volle Breite (Daumenzone). Top-Links → Sheet. Echtes App-Pattern.</p></div>
+    </div></div>
+  </section>
+
+  <!-- H -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option H</span><span class="opt-name">Search-First / Command</span>
+      <span class="opt-meta">Prominente Such-/Command-Leiste in der Mitte: <b>„Was möchtest du absichern?"</b> — produktartig, zielgerichtet.</span></div>
+    <div class="stage"><div class="sentinel" data-nav="navH"></div>
+      <nav class="navH" id="navH"><div class="navH-inner">
+        <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+        <form class="search" onsubmit="return false"><span class="ic">🔎</span><input placeholder="Was möchtest du absichern? z. B. Auto, Zahn, BU…"><button class="go">Suchen</button></form>
+        <div class="links-min"><a class="nav-link" href="#">So geht's</a></div>
+        <a class="cta cta-fill" href="#">Beraten lassen <span class="arrow">→</span></a>
+        <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div></nav>
+      <div class="hero"><div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="grid-lines"></span></div>
+        <div class="hero-content"><div class="hero-eyebrow">⚡ Direkt zum Ziel</div>
+          <h1 class="hero-h">Sag uns, <span class="g">was zählt.</span></h1>
+          <p class="hero-sub">Statt Menü-Suche: einfach eintippen, was du absichern willst — wir führen dich in Sekunden zur passenden Lösung.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a><a class="cta cta-ghost" href="#">Beliebte Sparten</a></div></div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div></div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p>Wirkt wie ein <b>echtes digitales Produkt</b> (Suche im Zentrum). Senkt die Einstiegshürde — Nutzer formuliert sein Bedürfnis direkt.</p></div>
+      <div class="note"><h4>Animation</h4><p>Suchfeld mit Fokus-Glow (Ring + Aufhellung), Platzhalter rotierbar. Scroll-Schatten an der Bar.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Suchfeld bleibt mobil zentral &amp; voll nutzbar (16px-Input → kein iOS-Zoom). Sekundär-Links → Sheet.</p></div>
+    </div></div>
+  </section>
+
+  <!-- I -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option I</span><span class="opt-name">Two-Tier · Kategorie-Ribbon</span>
+      <span class="opt-meta">Zwei Ebenen: oben Marke + CTA, darunter <b>scrollbare Sparten-Chips</b> mit Aktiv-Zustand — E-Commerce-Logik.</span></div>
+    <div class="stage"><div class="sentinel" data-nav="navI"></div>
+      <nav class="navI" id="navI">
+        <div class="navI-t1"><div class="navI-t1-inner">
+          <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+          <div style="display:flex;align-items:center;gap:.8rem">
+            <a class="cta cta-fill" href="#">Beraten lassen <span class="arrow">→</span></a>
+            <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+          </div>
+        </div></div>
+        <div class="navI-t2"><div class="chips">
+          <span class="chip active">⭐ Beliebt</span><span class="chip">🚗 Kfz</span><span class="chip">🏠 Hausrat</span><span class="chip">⚖️ Haftpflicht</span><span class="chip">🛡️ BU</span><span class="chip">🦷 Zahn</span><span class="chip">✈️ Reise</span><span class="chip">🐶 Tier</span><span class="chip">⚡ Strom &amp; mehr</span>
+        </div></div>
+      </nav>
+      <div class="hero"><div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="grid-lines"></span></div>
+        <div class="hero-content"><div class="hero-eyebrow">🔎 Alle Sparten griffbereit</div>
+          <h1 class="hero-h">Stöbern wie im<br><span class="g">Lieblings-Shop.</span></h1>
+          <p class="hero-sub">Sparten als Chips direkt im Header — ein Tipp genügt. Perfekt, wenn viele Themen schnell erreichbar sein sollen.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a></div></div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div></div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p>Vertraute <b>Shop-/Marktplatz-Logik</b>. Ideal bei vielen Sparten — alles sofort sichtbar, kein Dropdown nötig.</p></div>
+      <div class="note"><h4>Animation</h4><p>Chips mit Hover &amp; Gradient-Aktiv-Zustand, horizontal scrollbar (Touch-Swipe). Zweite Ebene wirft Schatten beim Scroll.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Chip-Reihe wird zum nativen horizontalen Swipe-Karussell — sehr mobil-freundlich.</p></div>
+    </div></div>
+  </section>
+
+  <!-- J -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option J</span><span class="opt-name">Soft Neubrutalism Card</span>
+      <span class="opt-meta">Header als kräftige Card mit Outline + Offset-Schatten · <b>verspielt, markant, jung</b> — maximale Wiedererkennung.</span></div>
+    <div class="stageJ stage"><div class="sentinel" data-nav="navJ"></div>
+      <nav class="navJ" id="navJ"><div class="navJ-card">
+        <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+        <ul class="nav-links"><li><a class="nav-link" href="#">Versicherungen</a></li><li><a class="nav-link" href="#">So geht's</a></li><li><a class="nav-link" href="#">Über uns</a></li></ul>
+        <div style="display:flex;align-items:center;gap:.7rem">
+          <a class="cta cta-fill" href="#">Beraten lassen <span class="arrow">→</span></a>
+          <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+        </div>
+      </div></nav>
+      <div class="hero"><div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
+        <div class="hero-content"><div class="hero-eyebrow">✨ Anders als die Anderen</div>
+          <h1 class="hero-h">Versicherung mit<br><span class="g">Charakter.</span></h1>
+          <p class="hero-sub">Ein Header, den man sich merkt: klare Outlines, kräftige Schatten, Coral-Pop — mutig, aber aufgeräumt.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a><a class="cta cta-ghost" href="#">Mehr entdecken</a></div></div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div></div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p>Maximale <b>Differenzierung &amp; Persönlichkeit</b>. Soft-Neubrutalism wirkt jung &amp; selbstbewusst, bleibt durch die Markenfarben seriös genug.</p></div>
+      <div class="note"><h4>Animation</h4><p>Offset-Schatten „drückt sich" beim Scroll zusammen (Card sinkt 1px). Links mit eigenem Mini-Schatten on Hover. CTA mit Press-Effekt.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Card skaliert fluid, Links → Burger/Sheet. Outline-Stil bleibt erhalten — konsistente Brand-Sprache.</p></div>
+    </div></div>
+  </section>
+
+  <div class="sheet" id="sheet">
+    <a class="brand sheet-brand" href="#"><span class="mark">P</span>POLICITY</a>
+    <button class="sheet-close" data-close aria-label="Schließen">×</button>
+    <a href="#">Versicherungen</a><a href="#">So geht's</a><a href="#">Über uns</a><a href="#">Chat</a>
+    <a class="cta cta-fill sheet-cta" href="#">Jetzt beraten lassen <span class="arrow">→</span></a>
+  </div>
+
+  <footer class="foot">
+    <div class="verdict">Mehr Auswahl, eine <span class="g">Entscheidung.</span></div>
+    <p>Aus Batch 2: <b>Option G (App Bottom-Bar)</b> für das stärkste App-Gefühl, <b>Option H (Search-First)</b> für produktartige Klarheit, <b>Option I (Kategorie-Ribbon)</b> bei vielen Sparten, <b>Option J</b> für maximale Persönlichkeit. <b>Option F</b> ist die seriös-ausgewogene.</p>
+    <p class="legal">Footer in Produktion: Impressum · Datenschutz · <b>Erstinformation/Statusangaben (§ 34d GewO)</b> · Transparenz Marktausschnitt &amp; Vergütung (IDD) · Cookie-Einstellungen.</p>
+  </footer>
+
+<script>
+  document.querySelectorAll('.sentinel').forEach(function(s){var id=s.getAttribute('data-nav');if(!id)return;var nav=document.getElementById(id);if(!nav)return;new IntersectionObserver(function(e){e.forEach(function(x){nav.classList.toggle('solid',!x.isIntersecting);});},{threshold:0,rootMargin:'-1px 0px 0px 0px'}).observe(s);});
+  document.querySelectorAll('.hero').forEach(function(h){new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.25}).observe(h);});
+  document.querySelectorAll('.chip').forEach(function(c){c.addEventListener('click',function(){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');});});
+  document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){if(t.classList.contains('fab'))return;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');});});
+  function closeSheets(){document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('open'));document.querySelectorAll('.burger').forEach(b=>b.classList.remove('open'));}
+  document.querySelectorAll('.burger').forEach(function(b){b.addEventListener('click',function(){var el=document.getElementById(b.getAttribute('data-sheet'));if(el.classList.contains('open')){closeSheets();}else{el.classList.add('open');b.classList.add('open');}});});
+  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeSheets));
+  document.querySelectorAll('.sheet a').forEach(a=>a.addEventListener('click',closeSheets));
+</script>
+</body>
+</html>
