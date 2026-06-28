@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Exploded Burger</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #d8cdb6; }
+
+  #stage {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    perspective: 1700px;
+    overflow: hidden;
+    /* warm studio backdrop */
+    background:
+      radial-gradient(130% 115% at 50% 36%, #fdfaf3 0%, #f1ead9 42%, #ddd2bb 78%, #cabfa6 100%);
+  }
+  /* soft vignette */
+  #stage::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(120% 100% at 50% 45%, rgba(0,0,0,0) 55%, rgba(60,45,25,0.18) 100%);
+    pointer-events: none;
+  }
+
+  #floorshadow {
+    position: absolute;
+    left: 50%; top: 760px;
+    width: 540px; height: 90px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(40,28,12,0.40) 0%, rgba(40,28,12,0) 70%);
+    filter: blur(6px);
+    will-change: opacity, transform;
+  }
+
+  #group {
+    position: absolute;
+    left: 0; top: 0;
+    width: 1920px; height: 1080px;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .layer {
+    position: absolute;
+    left: 960px; top: 540px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+    will-change: transform, filter;
+  }
+  .layer .media {
+    filter: drop-shadow(0 14px 16px rgba(35,22,8,0.30));
+  }
+  .layer img.photo {
+    display: block;
+    object-fit: contain;
+  }
+  .layer.lettuce img.photo { object-fit: cover; object-position: 50% 36%; }
+  .layer svg { display: block; }
+</style>
+</head>
+<body>
+  <div id="stage">
+    <div id="floorshadow"></div>
+    <div id="group">
+
+      <!-- TOP BUN (photo) -->
+      <div class="layer" id="L-topbun" data-i="0">
+        <div class="media" style="width:640px;height:360px;overflow:hidden;">
+          <img class="photo" data-key="1" src="assets/01_top_bun.png" width="640" height="360"
+               style="object-fit:cover;object-position:50% 45%;" alt="">
+        </div>
+      </div>
+
+      <!-- LETTUCE (photo, cropped to a ruffled band) -->
+      <div class="layer lettuce" id="L-lettuce" data-i="1">
+        <div class="media" style="width:500px;height:110px;overflow:hidden;border-radius:46px;">
+          <img class="photo" data-key="1" src="assets/02_lettuce.png" width="500" height="110" alt="">
+        </div>
+      </div>
+
+      <!-- TOMATO (svg) -->
+      <div class="layer" id="L-tomato" data-i="2">
+        <div class="media">
+          <svg width="440" height="87" viewBox="0 0 486 96">
+            <defs>
+              <radialGradient id="tomG" cx="50%" cy="32%" r="78%">
+                <stop offset="0%" stop-color="#ff8a72"/>
+                <stop offset="42%" stop-color="#f4513a"/>
+                <stop offset="100%" stop-color="#cf2f23"/>
+              </radialGradient>
+              <linearGradient id="tomFlesh" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#ffb09c"/>
+                <stop offset="100%" stop-color="#ff7d68"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="243" cy="48" rx="240" ry="45" fill="url(#tomG)"/>
+            <ellipse cx="243" cy="46" rx="208" ry="33" fill="url(#tomFlesh)" opacity="0.55"/>
+            <!-- seeds -->
+            <g fill="#ffe9c9" opacity="0.85">
+              <ellipse cx="150" cy="40" rx="6" ry="10"/>
+              <ellipse cx="243" cy="34" rx="6" ry="10"/>
+              <ellipse cx="336" cy="40" rx="6" ry="10"/>
+              <ellipse cx="195" cy="56" rx="6" ry="10"/>
+              <ellipse cx="291" cy="56" rx="6" ry="10"/>
+            </g>
+            <ellipse cx="243" cy="30" rx="170" ry="9" fill="#ffffff" opacity="0.30"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- ONION (svg rings) -->
+      <div class="layer" id="L-onion" data-i="3">
+        <div class="media">
+          <svg width="430" height="51" viewBox="0 0 474 56">
+            <defs>
+              <linearGradient id="onG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f6ecf6"/>
+                <stop offset="50%" stop-color="#d9b6da"/>
+                <stop offset="100%" stop-color="#b07ab4"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="237" cy="28" rx="233" ry="23" fill="url(#onG)" opacity="0.96"/>
+            <g fill="none" stroke="#9c5fa6" stroke-width="3" opacity="0.55">
+              <ellipse cx="120" cy="28" rx="40" ry="17"/>
+              <ellipse cx="215" cy="28" rx="44" ry="18"/>
+              <ellipse cx="315" cy="28" rx="42" ry="17"/>
+              <ellipse cx="400" cy="28" rx="34" ry="15"/>
+            </g>
+            <ellipse cx="237" cy="19" rx="180" ry="6" fill="#ffffff" opacity="0.45"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- CHEESE (svg, melty) -->
+      <div class="layer" id="L-cheese" data-i="4">
+        <div class="media">
+          <svg width="460" height="83" viewBox="0 0 512 92">
+            <defs>
+              <linearGradient id="chG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#ffe07a"/>
+                <stop offset="45%" stop-color="#ffc23c"/>
+                <stop offset="100%" stop-color="#f0991f"/>
+              </linearGradient>
+            </defs>
+            <path d="M18,30
+                     Q256,2 494,30
+                     L494,40
+                     Q470,78 446,52
+                     Q420,86 392,54
+                     L120,54
+                     Q92,84 66,52
+                     Q42,76 18,42 Z"
+                  fill="url(#chG)"/>
+            <path d="M30,26 Q256,4 482,26" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" opacity="0.45"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- PATTY (svg) -->
+      <div class="layer" id="L-patty" data-i="5">
+        <div class="media">
+          <svg width="450" height="112" viewBox="0 0 508 126">
+            <defs>
+              <linearGradient id="patG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#7a4628"/>
+                <stop offset="45%" stop-color="#532a14"/>
+                <stop offset="100%" stop-color="#34190b"/>
+              </linearGradient>
+              <filter id="charTex" x="-5%" y="-5%" width="110%" height="110%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.9 0.5" numOctaves="2" seed="7" result="n"/>
+                <feColorMatrix in="n" type="matrix"
+                  values="0 0 0 0 0.10  0 0 0 0 0.05  0 0 0 0 0.02  0 0 0 0.5 0" result="dark"/>
+                <feComposite in="dark" in2="SourceGraphic" operator="in" result="masked"/>
+                <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="masked"/></feMerge>
+              </filter>
+            </defs>
+            <g filter="url(#charTex)">
+              <path d="M16,70
+                       Q24,30 90,26
+                       Q160,16 254,18
+                       Q350,16 420,26
+                       Q486,32 492,72
+                       Q492,108 420,112
+                       L88,112
+                       Q16,108 16,70 Z"
+                    fill="url(#patG)"/>
+            </g>
+            <path d="M40,52 Q254,30 468,52" fill="none" stroke="#9a6038" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
+            <g fill="#a06a3e" opacity="0.4">
+              <circle cx="120" cy="60" r="4"/><circle cx="220" cy="50" r="3"/>
+              <circle cx="320" cy="58" r="4"/><circle cx="400" cy="64" r="3"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- BOTTOM BUN (svg) -->
+      <div class="layer" id="L-bottombun" data-i="6">
+        <div class="media">
+          <svg width="440" height="134" viewBox="0 0 492 150">
+            <defs>
+              <linearGradient id="bbG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f5e6c3"/>
+                <stop offset="26%" stop-color="#eac98c"/>
+                <stop offset="62%" stop-color="#c9883f"/>
+                <stop offset="100%" stop-color="#a4682c"/>
+              </linearGradient>
+            </defs>
+            <path d="M14,40
+                     Q14,22 60,20
+                     L432,20
+                     Q478,22 478,40
+                     Q478,118 392,134
+                     Q246,158 100,134
+                     Q14,118 14,40 Z"
+                  fill="url(#bbG)"/>
+            <path d="M30,34 Q246,16 462,34" fill="none" stroke="#fbf0d6" stroke-width="9" stroke-linecap="round" opacity="0.55"/>
+            <path d="M40,118 Q246,150 452,118" fill="none" stroke="#8c531f" stroke-width="6" stroke-linecap="round" opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+  const TWO_PI = Math.PI * 2;
+
+  // ---- per-layer assembled (aY) and exploded (eY) vertical centers, px from stage center ----
+  // z: paint order so the assembled burger reads correctly (top bun in FRONT)
+  const LAYERS = [
+    { id: "L-topbun",    aY: -120, eY: -384, fl: 0.0, z: 70 },
+    { id: "L-lettuce",   aY:  -40, eY: -250, fl: 0.9, z: 60 },
+    { id: "L-tomato",    aY:   -2, eY: -120, fl: 1.7, z: 50 },
+    { id: "L-onion",     aY:   18, eY:    6, fl: 2.4, z: 40 },
+    { id: "L-cheese",    aY:   40, eY:  132, fl: 3.1, z: 30 },
+    { id: "L-patty",     aY:   72, eY:  270, fl: 3.8, z: 20 },
+    { id: "L-bottombun", aY:  126, eY:  408, fl: 4.6, z: 10 },
+  ].map(o => ({ ...o, el: document.getElementById(o.id) }));
+  LAYERS.forEach(L => { L.el.style.zIndex = String(L.z); });
+
+  const group = document.getElementById("group");
+  const floorShadow = document.getElementById("floorshadow");
+
+  function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  // explosion progress 0..1 as a function of timeline t (0..1)
+  const EXP_START = 0.18, EXP_END = 0.60;
+  function expProgress(t) {
+    if (t <= EXP_START) return 0;
+    if (t >= EXP_END) return 1;
+    return easeOutCubic((t - EXP_START) / (EXP_END - EXP_START));
+  }
+
+  // MAIN deterministic frame setter, t in [0,1]
+  function setFrame(t) {
+    t = Math.max(0, Math.min(1, t));
+    const p = expProgress(t);
+
+    // motion blur from explosion velocity
+    const v = Math.abs(expProgress(t + 0.008) - expProgress(t - 0.008)) / 0.016;
+    const blur = Math.min(6.5, v * 4.2);
+
+    // whole-group "camera" motion
+    const bob   = Math.sin(t * TWO_PI * 0.6) * (3 + 4 * p);
+    const rotZ  = Math.sin(t * TWO_PI * 0.45 + 1.0) * (0.6 * (0.2 + 0.8 * p));
+    const rotX  = 7 * p;
+    const scale = lerp(1.02, 0.84, p);
+    group.style.transform =
+      `translateY(${bob.toFixed(2)}px) rotateX(${rotX.toFixed(2)}deg) ` +
+      `rotateZ(${rotZ.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+
+    // contact shadow fades + spreads as it explodes
+    floorShadow.style.opacity = (0.55 * (1 - p) + 0.08).toFixed(3);
+    floorShadow.style.transform =
+      `translate(-50%,-50%) scaleX(${(1 + 0.25 * p).toFixed(3)})`;
+
+    for (let i = 0; i < LAYERS.length; i++) {
+      const L = LAYERS[i];
+      const baseY = lerp(L.aY, L.eY, p);
+      const floatY = Math.sin(t * TWO_PI * 0.9 + L.fl) * (1.5 + 7 * p);
+      const y = baseY + floatY;
+      // tiny per-layer scale "pop" as it detaches
+      const pop = 1 + 0.03 * Math.sin(Math.min(1, p) * Math.PI) * (i % 2 ? 1 : -1);
+      L.el.style.transform =
+        `translate(-50%,-50%) translateY(${y.toFixed(2)}px) scale(${pop.toFixed(3)})`;
+      L.el.style.filter = blur > 0.05 ? `blur(${blur.toFixed(2)}px)` : "none";
+    }
+  }
+  window.setFrame = setFrame;
+
+  // ---- white-background keying for photo layers (true transparency, no credits) ----
+  function keyImage(img) {
+    const c = document.createElement("canvas");
+    c.width = img.naturalWidth; c.height = img.naturalHeight;
+    const x = c.getContext("2d");
+    x.drawImage(img, 0, 0);
+    const d = x.getImageData(0, 0, c.width, c.height);
+    const a = d.data;
+    for (let i = 0; i < a.length; i += 4) {
+      const r = a[i], g = a[i + 1], b = a[i + 2];
+      const mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+      if (mn > 236 && (mx - mn) < 16) {
+        const wht = Math.min(1, (mn - 236) / 16); // soft ramp 236..252
+        a[i + 3] = Math.round(a[i + 3] * (1 - wht));
+      }
+    }
+    x.putImageData(d, 0, 0);
+    return c.toDataURL("image/png");
+  }
+
+  async function processPhotos() {
+    const imgs = Array.from(document.querySelectorAll('img.photo[data-key="1"]'));
+    for (const img of imgs) {
+      try {
+        if (!img.complete) await new Promise(res => { img.onload = res; img.onerror = res; });
+        if (img.decode) { try { await img.decode(); } catch (e) {} }
+        const url = keyImage(img);
+        await new Promise(res => {
+          const tmp = new Image();
+          tmp.onload = () => { img.src = url; res(); };
+          tmp.onerror = res;
+          tmp.src = url;
+        });
+      } catch (e) { /* leave original on failure */ }
+    }
+  }
+
+  async function init() {
+    await processPhotos();
+    setFrame(0);
+    window.__ready = true;
+
+    // live preview only when ?auto is present
+    if (location.search.indexOf("auto") !== -1) {
+      const DUR = 5000, HOLD = 700; // ms
+      const start = performance.now();
+      function loop(now) {
+        const e = (now - start) % (DUR + HOLD);
+        setFrame(Math.min(1, e / DUR));
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+    }
+  }
+
+  if (document.readyState === "complete" || document.readyState === "interactive") init();
+  else window.addEventListener("DOMContentLoaded", init);
+})();
+</script>
+</body>
+</html>
