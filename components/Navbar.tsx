@@ -67,10 +67,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b transition-[box-shadow,border-color,background] duration-500 ease-smooth ${
+      className={`sticky top-0 z-50 border-b backdrop-blur-md transition-[box-shadow,border-color,background] duration-500 ease-smooth ${
         solid
-          ? "border-line bg-white/85 shadow-soft backdrop-blur-md"
-          : "border-transparent bg-white/80 backdrop-blur-md"
+          ? "border-line bg-white shadow-soft supports-[backdrop-filter]:bg-white/85"
+          : "border-transparent bg-white/95 supports-[backdrop-filter]:bg-white/80"
       }`}
     >
       <nav
