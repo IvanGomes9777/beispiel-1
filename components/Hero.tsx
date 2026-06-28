@@ -51,7 +51,7 @@ export default function Hero() {
         className="absolute inset-0 z-[1]"
         style={{
           background:
-            "linear-gradient(100deg, rgba(9,14,26,.86) 0%, rgba(9,14,26,.62) 45%, rgba(9,14,26,.35) 100%)",
+            "linear-gradient(100deg, rgba(9,14,26,.88) 0%, rgba(9,14,26,.68) 48%, rgba(9,14,26,.48) 100%)",
         }}
       />
       <div className="absolute inset-x-0 bottom-0 z-[1] h-32 bg-gradient-to-b from-transparent to-soft" />
@@ -66,7 +66,7 @@ export default function Hero() {
         {/* Proof-Signal als Eyebrow */}
         <motion.div
           variants={item}
-          className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 font-display text-[0.78rem] font-medium text-white backdrop-blur-sm"
+          className="inline-flex w-fit max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-2xl border border-white/20 bg-white/10 px-4 py-1.5 font-display text-[0.72rem] font-medium leading-snug text-white backdrop-blur-sm xs:text-[0.78rem] sm:rounded-full"
         >
           <span className="flex items-center gap-0.5 text-amber-300" aria-hidden>
             <Star className="h-3.5 w-3.5 fill-amber-300" />
