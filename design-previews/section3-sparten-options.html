@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>POLICITY — Sektion 3 „Sparten" · 5 Optionen</title>
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=sora:400,500,600,700,800|inter:400,500,600" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1d6ff2;--blue-deep:#1657d6;--turq:#06b6d4;--turq-deep:#0e9bb5;
+    --coral:#ff6b5e;--coral-deep:#f5564a;--ink:#0f172a;--slate:#475569;--muted:#64748b;
+    --line:#e6edf5;--paper:#fff;--soft:#f4f8fc;
+    --grad:linear-gradient(135deg,var(--blue),var(--turq));--grad-coral:linear-gradient(135deg,#ff8a5e,var(--coral));
+    --sora:'Sora',system-ui,sans-serif;--inter:'Inter',system-ui,sans-serif;
+    --ease:cubic-bezier(.22,1,.36,1);--shadow:0 18px 50px -24px rgba(15,73,153,.4);--shadow-sm:0 8px 24px -14px rgba(15,73,153,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{font-family:var(--inter);background:var(--soft);color:var(--ink);overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--blue);color:#fff}
+
+  .intro{padding:clamp(2.5rem,6vw,5rem) clamp(1.25rem,5vw,4rem) clamp(1rem,2vw,2rem);max-width:1100px;margin-inline:auto;text-align:center}
+  .kicker{font-family:var(--sora);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--blue);font-weight:600}
+  .intro h1{font-family:var(--sora);font-weight:800;font-size:clamp(2rem,1.2rem+4vw,3.6rem);line-height:1.05;margin:.7rem 0 .8rem;letter-spacing:-.02em}
+  .intro h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .intro p{color:var(--muted);max-width:60ch;margin-inline:auto;font-size:clamp(.95rem,.9rem+.3vw,1.05rem);line-height:1.7}
+  .intro .hint{margin-top:1.1rem;font-size:.82rem;color:#94a3b8}.intro .hint b{color:var(--coral)}
+
+  .opt-label{position:sticky;top:0;z-index:60;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;padding:.85rem clamp(1.25rem,5vw,4rem);background:var(--ink);color:#fff}
+  .opt-tag{font-family:var(--sora);font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--grad);padding:.34rem .7rem;border-radius:6px}
+  .opt-name{font-family:var(--sora);font-size:1.2rem;font-weight:600}
+  .opt-meta{margin-left:auto;font-size:.74rem;color:#9fb2cc;max-width:48ch}.opt-meta b{color:#7fd6e6;font-weight:600}
+
+  .sec{padding:clamp(3rem,7vw,6rem) clamp(1.5rem,6vw,4rem)}
+  .wrap{max-width:1200px;margin-inline:auto}
+  .sec-head{max-width:60ch;margin-bottom:clamp(1.8rem,4vw,3rem)}
+  .sec-eyebrow{font-family:var(--sora);font-size:.74rem;font-weight:600;letter-spacing:.04em;color:var(--blue);text-transform:uppercase}
+  .sec-h{font-family:var(--sora);font-weight:800;font-size:clamp(1.8rem,1.2rem+2.6vw,3rem);line-height:1.1;letter-spacing:-.02em;margin:.5rem 0 .7rem}
+  .sec-h .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sec-sub{color:var(--slate);font-size:clamp(1rem,.95rem+.2vw,1.12rem);line-height:1.6}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  .stagger>*{opacity:0;transform:translateY(22px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .stagger.in>*{opacity:1;transform:none}
+  .stagger.in>*:nth-child(2){transition-delay:.07s}.stagger.in>*:nth-child(3){transition-delay:.14s}
+  .stagger.in>*:nth-child(4){transition-delay:.21s}.stagger.in>*:nth-child(5){transition-delay:.28s}
+  .stagger.in>*:nth-child(6){transition-delay:.35s}
+
+  .card-ic{display:grid;place-items:center;border-radius:14px;background:#eaf2ff;color:var(--blue);font-size:1.5rem}
+  .arrowlink{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--sora);font-weight:600;font-size:.86rem;color:var(--blue)}
+  .arrowlink .a{transition:transform .3s var(--ease)}
+  .cta-fill{display:inline-flex;align-items:center;gap:.5rem;background:var(--grad-coral);color:#fff;padding:.8rem 1.4rem;border-radius:12px;font-family:var(--sora);font-weight:600;font-size:.9rem;box-shadow:var(--shadow-sm)}
+
+  /* ===== A — Bento ===== */
+  .bento{display:grid;gap:1rem;grid-template-columns:repeat(2,1fr)}
+  .bento .cell{background:#fff;border:1px solid var(--line);border-radius:20px;padding:1.4rem;transition:transform .35s var(--ease),box-shadow .35s var(--ease);min-height:160px;display:flex;flex-direction:column;justify-content:space-between}
+  .bento .cell:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .bento .cell .card-ic{width:46px;height:46px}
+  .bento .feat{grid-row:span 2;background:var(--grad);border:0;color:#fff}
+  .bento .feat .card-ic{background:rgba(255,255,255,.18);color:#fff}
+  .bento .feat h3{font-family:var(--sora);font-size:1.5rem;font-weight:700;margin-top:.8rem}
+  .bento .feat p{color:rgba(255,255,255,.9);font-size:.95rem;margin-top:.4rem;line-height:1.5}
+  .bento .feat .arrowlink{color:#fff}
+  .bento h3{font-family:var(--sora);font-size:1.05rem;font-weight:600;margin-top:.6rem}
+  .bento p{color:var(--muted);font-size:.82rem;margin:.2rem 0 .6rem}
+  .bento .wide{grid-column:span 2}
+  @media(min-width:760px){.bento{grid-template-columns:repeat(4,1fr)}.bento .feat{grid-column:span 2}.bento .wide{grid-column:span 2}}
+
+  /* ===== B — 3-col cards ===== */
+  .cards3{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+  .card{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:1.5rem;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s}
+  .card::before{content:"";position:absolute;inset:0;border-radius:18px;padding:1px;background:var(--grad);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .35s}
+  .card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .card:hover::before{opacity:1}
+  .card .card-ic{width:52px;height:52px;font-size:1.7rem}
+  .card h3{font-family:var(--sora);font-size:1.15rem;font-weight:600;margin:1rem 0 .4rem}
+  .card p{color:var(--muted);font-size:.9rem;line-height:1.55;margin-bottom:1rem}
+  .card:hover .arrowlink .a{transform:translateX(5px)}
+
+  /* ===== C — Tabs ===== */
+  .tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.6rem}
+  .tab{font-family:var(--sora);font-weight:500;font-size:.88rem;color:var(--slate);background:#fff;border:1px solid var(--line);padding:.6rem 1.1rem;border-radius:999px;cursor:pointer;transition:.25s var(--ease)}
+  .tab:hover{border-color:#cfe0f5}
+  .tab.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:var(--shadow-sm)}
+  .panel{display:none;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+  .panel.show{display:grid;animation:fade .4s var(--ease)}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .prow{display:flex;align-items:center;gap:.9rem;background:#fff;border:1px solid var(--line);border-radius:14px;padding:1rem;transition:.3s var(--ease)}
+  .prow:hover{background:var(--soft);border-color:#cfe0f5}
+  .prow .card-ic{width:42px;height:42px;flex:none;font-size:1.3rem}
+  .prow b{font-family:var(--sora);font-weight:600;font-size:.95rem;display:block}
+  .prow span{font-size:.78rem;color:var(--muted)}
+
+  /* ===== D — Carousel ===== */
+  .rail{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.4rem .2rem 1.4rem;scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+  .scard{scroll-snap-align:start;flex:0 0 78%;max-width:300px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:1.5rem;transition:transform .3s var(--ease)}
+  .scard:hover{transform:translateY(-4px)}
+  .scard .top{height:120px;border-radius:14px;background:var(--grad);display:grid;place-items:center;font-size:2.4rem;margin-bottom:1rem}
+  .scard.alt .top{background:var(--grad-coral)}
+  .scard h3{font-family:var(--sora);font-size:1.15rem;font-weight:600;margin-bottom:.3rem}
+  .scard p{color:var(--muted);font-size:.86rem;line-height:1.5;margin-bottom:.9rem}
+  .railnav{display:flex;gap:.5rem;justify-content:flex-end;margin-bottom:.8rem}
+  .railnav button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:1.1rem;cursor:pointer;transition:.25s}
+  .railnav button:hover{border-color:var(--blue);color:var(--blue)}
+  @media(min-width:760px){.scard{flex-basis:31%}}
+
+  /* ===== E — Compact icon grid ===== */
+  .iconwrap{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr))}
+  .itile{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.2rem 1rem;text-align:center;transition:.3s var(--ease);cursor:pointer}
+  .itile:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent}
+  .itile .ti{width:48px;height:48px;margin:0 auto .6rem;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;background:#eaf2ff;transition:.3s var(--ease)}
+  .itile:hover .ti{background:var(--grad);transform:scale(1.06)}
+  .itile b{font-family:var(--sora);font-weight:600;font-size:.92rem;display:block}
+  .itile span{font-size:.74rem;color:var(--muted)}
+
+  .notes{background:var(--ink);color:#cdd7e6;padding:clamp(1.4rem,3vw,2rem) clamp(1.5rem,6vw,4rem)}
+  .notes-grid{max-width:1200px;margin-inline:auto;display:grid;gap:1.3rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+  .note h4{font-family:var(--sora);font-weight:700;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:#7fd6e6;margin-bottom:.4rem}
+  .note p{font-size:.85rem;line-height:1.55}.note p b{color:#fff;font-weight:600}
+
+  .foot{padding:clamp(2.5rem,6vw,4.5rem) clamp(1.5rem,6vw,4rem);text-align:center;background:var(--soft)}
+  .foot .verdict{font-family:var(--sora);font-weight:800;font-size:clamp(1.4rem,1rem+2vw,2.2rem);letter-spacing:-.02em;margin-bottom:1rem}
+  .foot .verdict .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .foot p{color:var(--muted);max-width:62ch;margin:.4rem auto;font-size:.92rem;line-height:1.7}.foot p b{color:var(--coral)}
+
+  @media (max-width:760px){.opt-meta{display:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}.rv,.stagger>*{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+  <header class="intro">
+    <div class="kicker">POLICITY · Sektion 3 · Versicherungen / Sparten</div>
+    <h1>Wie zeigen wir die <span class="g">Sparten?</span></h1>
+    <p>Fünf Layouts für die Themen-Segmentierung (Kfz, Hausrat, Haftpflicht, BU …) — von Bento bis Swipe-Carousel. Alle live: reinscrollen für die Reveal-Animation, hovern, Tabs/Carousel testen.</p>
+    <div class="hint">Platzhalter-Daten · Sora/Inter via Bunny (EU/DSGVO)<span style="margin:0 .6rem">·</span>Wähle mit <b>„Weiter / Option X"</b></div>
+  </header>
+
+  <!-- A Bento -->
+  <div class="opt-label"><span class="opt-tag">Option A</span><span class="opt-name">Bento-Grid</span>
+    <span class="opt-meta">Modulares Kachel-Raster mit einer großen Feature-Kachel · <b>modern, magazinig, Hierarchie sichtbar.</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">Alle Sparten an einem Ort</div>
+      <h2 class="sec-h">Welcher Schutz passt <span class="g">zu deinem Leben?</span></h2>
+      <p class="sec-sub">Von der ersten Wohnung bis zur Familienabsicherung — wähle dein Thema und wir zeigen transparent den geprüften Marktausschnitt.</p></div>
+    <div class="bento stagger">
+      <div class="cell feat"><div class="card-ic">🛡️</div><div><h3>Berufsunfähigkeit</h3><p>Dein wichtigster Schutz: Einkommen absichern, wenn du nicht mehr arbeiten kannst.</p><a class="arrowlink">Mehr erfahren <span class="a">→</span></a></div></div>
+      <div class="cell"><div class="card-ic">🚗</div><div><h3>Kfz</h3><p>Auto &amp; Motorrad</p></div></div>
+      <div class="cell"><div class="card-ic">🏠</div><div><h3>Hausrat</h3><p>Zuhause schützen</p></div></div>
+      <div class="cell"><div class="card-ic">⚖️</div><div><h3>Haftpflicht</h3><p>Privat &amp; Familie</p></div></div>
+      <div class="cell"><div class="card-ic">🦷</div><div><h3>Zahn</h3><p>Zusatzschutz</p></div></div>
+      <div class="cell wide"><div class="card-ic">✈️</div><div><h3>Reise</h3><p>Weltweit sorglos unterwegs — Auslandskranken &amp; Gepäck.</p></div></div>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p>Trend 2025 (Bento). Die <b>Feature-Kachel lenkt</b> gezielt auf das margenstärkste/wichtigste Produkt (BU).</p></div>
+    <div class="note"><h4>Animation</h4><p>Kacheln staffeln beim Reinscrollen ein, Hover-Lift + Schatten. Feature-Kachel mit Gradient.</p></div>
+    <div class="note"><h4>Responsive</h4><p>4-Spalten-Raster → 2 → 1; Feature spannt fluid. Container-Query-tauglich.</p></div>
+  </div></div>
+
+  <!-- B 3-col -->
+  <div class="opt-label"><span class="opt-tag">Option B</span><span class="opt-name">Klassische 3er-Cards</span>
+    <span class="opt-meta">Aufgeräumte Karten mit Icon, Text &amp; „Mehr"-Link · <b>vertraut, klar, konversionssicher.</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">Unsere Bereiche</div>
+      <h2 class="sec-h">Klar gegliedert, <span class="g">schnell gefunden.</span></h2>
+      <p class="sec-sub">Jede Sparte mit einem Satz erklärt — du weißt sofort, ob es passt.</p></div>
+    <div class="cards3 stagger">
+      <div class="card"><div class="card-ic">🛡️</div><h3>Berufsunfähigkeit</h3><p>Sichert dein Einkommen, wenn Gesundheit nicht mitspielt.</p><a class="arrowlink">Mehr erfahren <span class="a">→</span></a></div>
+      <div class="card"><div class="card-ic">🚗</div><h3>Kfz</h3><p>Fairer Schutz für Auto &amp; Motorrad, schnell gewechselt.</p><a class="arrowlink">Mehr erfahren <span class="a">→</span></a></div>
+      <div class="card"><div class="card-ic">🏠</div><h3>Hausrat</h3><p>Hab und Gut zuhause — gegen Feuer, Einbruch, Wasser.</p><a class="arrowlink">Mehr erfahren <span class="a">→</span></a></div>
+      <div class="card"><div class="card-ic">⚖️</div><h3>Haftpflicht</h3><p>Der Klassiker: schützt dich &amp; deine Familie im Alltag.</p><a class="arrowlink">Mehr erfahren <span class="a">→</span></a></div>
+      <div class="card"><div class="card-ic">🦷</div><h3>Zahn</h3><p>Zusatzschutz für Zahnersatz &amp; Prophylaxe.</p><a class="arrowlink">Mehr erfahren <span class="a">→</span></a></div>
+      <div class="card"><div class="card-ic">✈️</div><h3>Reise</h3><p>Weltweit abgesichert — Krankenschutz &amp; Storno.</p><a class="arrowlink">Mehr erfahren <span class="a">→</span></a></div>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p>Zeitlos &amp; vertrauenswürdig. <b>Niedrigste kognitive Last</b> — funktioniert für jede Zielgruppe.</p></div>
+    <div class="note"><h4>Animation</h4><p>Gradient-Border-Glow + Lift on Hover, Pfeil gleitet. Stagger-Reveal.</p></div>
+    <div class="note"><h4>Responsive</h4><p><code>auto-fit/minmax</code> → 3→2→1 Spalten ganz ohne Media-Query.</p></div>
+  </div></div>
+
+  <!-- C Tabs -->
+  <div class="opt-label"><span class="opt-tag">Option C</span><span class="opt-name">Tab-Explorer</span>
+    <span class="opt-meta">Sparten nach Lebensbereich gefiltert (Beliebt · Privat · Gesundheit · Mobilität) · <b>interaktiv, geführt.</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">Nach Lebensbereich</div>
+      <h2 class="sec-h">Finde, was <span class="g">zu dir gehört.</span></h2>
+      <p class="sec-sub">Filtere nach Bereich — wir zeigen nur die Sparten, die wirklich relevant sind.</p></div>
+    <div class="rv">
+      <div class="tabs" id="tabsC">
+        <button class="tab active" data-p="p0">⭐ Beliebt</button><button class="tab" data-p="p1">👨‍👩‍👧 Privat</button>
+        <button class="tab" data-p="p2">🩺 Gesundheit</button><button class="tab" data-p="p3">🚗 Mobilität</button>
+      </div>
+      <div class="panel show" id="p0">
+        <div class="prow"><span class="card-ic">🛡️</span><span><b>Berufsunfähigkeit</b><span>Einkommen absichern</span></span></div>
+        <div class="prow"><span class="card-ic">⚖️</span><span><b>Haftpflicht</b><span>Privat &amp; Familie</span></span></div>
+        <div class="prow"><span class="card-ic">🚗</span><span><b>Kfz</b><span>Auto &amp; Motorrad</span></span></div>
+      </div>
+      <div class="panel" id="p1">
+        <div class="prow"><span class="card-ic">🏠</span><span><b>Hausrat</b><span>Zuhause schützen</span></span></div>
+        <div class="prow"><span class="card-ic">⚖️</span><span><b>Haftpflicht</b><span>Privat &amp; Familie</span></span></div>
+        <div class="prow"><span class="card-ic">🐶</span><span><b>Tierhalter</b><span>Hund &amp; Pferd</span></span></div>
+      </div>
+      <div class="panel" id="p2">
+        <div class="prow"><span class="card-ic">🦷</span><span><b>Zahn</b><span>Zusatzschutz</span></span></div>
+        <div class="prow"><span class="card-ic">🛡️</span><span><b>Berufsunfähigkeit</b><span>Einkommen absichern</span></span></div>
+        <div class="prow"><span class="card-ic">🏥</span><span><b>Kranken-Zusatz</b><span>Mehr Leistung</span></span></div>
+      </div>
+      <div class="panel" id="p3">
+        <div class="prow"><span class="card-ic">🚗</span><span><b>Kfz</b><span>Auto &amp; Motorrad</span></span></div>
+        <div class="prow"><span class="card-ic">✈️</span><span><b>Reise</b><span>Weltweit sorglos</span></span></div>
+        <div class="prow"><span class="card-ic">🚲</span><span><b>Fahrrad/E-Bike</b><span>Diebstahlschutz</span></span></div>
+      </div>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p><b>Geführte Auswahl</b> — bedient die „Bedarfs-/Lebenssituations-Segmentierung" der Branche direkt.</p></div>
+    <div class="note"><h4>Animation</h4><p>Aktiver Tab mit Gradient, Panel faded/slidet beim Wechsel. (In React: <code>AnimatePresence</code>.)</p></div>
+    <div class="note"><h4>Responsive</h4><p>Tabs wrappen, Panels <code>auto-fit</code>. Touch-Ziele ≥44px.</p></div>
+  </div></div>
+
+  <!-- D Carousel -->
+  <div class="opt-label"><span class="opt-tag">Option D</span><span class="opt-name">Swipe-Carousel</span>
+    <span class="opt-meta">Horizontale Karten mit Scroll-Snap &amp; Peek der nächsten Karte · <b>app-nativ, mobil zum Wischen.</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">Durchwischen</div>
+      <h2 class="sec-h">Stöbern wie im <span class="g">Feed.</span></h2>
+      <p class="sec-sub">Wisch dich durch die Sparten — visuell, schnell, daumenfreundlich.</p></div>
+    <div class="rv">
+      <div class="railnav"><button data-dir="-1" aria-label="zurück">←</button><button data-dir="1" aria-label="weiter">→</button></div>
+      <div class="rail" id="railD">
+        <div class="scard"><div class="top">🛡️</div><h3>Berufsunfähigkeit</h3><p>Dein Einkommen, abgesichert.</p><a class="arrowlink">Ansehen <span class="a">→</span></a></div>
+        <div class="scard alt"><div class="top">🚗</div><h3>Kfz</h3><p>Auto &amp; Motorrad fair versichert.</p><a class="arrowlink">Ansehen <span class="a">→</span></a></div>
+        <div class="scard"><div class="top">🏠</div><h3>Hausrat</h3><p>Zuhause rundum geschützt.</p><a class="arrowlink">Ansehen <span class="a">→</span></a></div>
+        <div class="scard alt"><div class="top">⚖️</div><h3>Haftpflicht</h3><p>Der Alltagsschutz für alle.</p><a class="arrowlink">Ansehen <span class="a">→</span></a></div>
+        <div class="scard"><div class="top">✈️</div><h3>Reise</h3><p>Weltweit sorglos unterwegs.</p><a class="arrowlink">Ansehen <span class="a">→</span></a></div>
+      </div>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p>Modern &amp; <b>mobil-first</b>. Peekende Folgekarte signalisiert „weiter wischen" — hohe Engagement-Rate.</p></div>
+    <div class="note"><h4>Animation</h4><p>CSS Scroll-Snap, Pfeil-Buttons scrollen smooth, Hover-Lift. Bunte Karten-Tops.</p></div>
+    <div class="note"><h4>Responsive</h4><p>Touch-Swipe nativ; Karten 78 %→31 % Breite. Kein H-Scroll der Seite (nur im Rail bewusst).</p></div>
+  </div></div>
+
+  <!-- E Icon grid -->
+  <div class="opt-label"><span class="opt-tag">Option E</span><span class="opt-name">Kompaktes Icon-Raster</span>
+    <span class="opt-meta">Dichtes Raster vieler kleiner Icon-Kacheln · <b>Übersicht über ALLE Sparten auf einen Blick.</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">Komplettübersicht</div>
+      <h2 class="sec-h">Alles, was wir <span class="g">absichern.</span></h2>
+      <p class="sec-sub">Maximale Übersicht: jede Sparte ein Tipp entfernt — ideal, wenn das Portfolio breit ist.</p></div>
+    <div class="iconwrap stagger">
+      <a class="itile"><span class="ti">🛡️</span><b>BU</b><span>Berufsunfähigkeit</span></a>
+      <a class="itile"><span class="ti">🚗</span><b>Kfz</b><span>Auto &amp; Motorrad</span></a>
+      <a class="itile"><span class="ti">🏠</span><b>Hausrat</b><span>Zuhause</span></a>
+      <a class="itile"><span class="ti">⚖️</span><b>Haftpflicht</b><span>Privat</span></a>
+      <a class="itile"><span class="ti">🦷</span><b>Zahn</b><span>Zusatz</span></a>
+      <a class="itile"><span class="ti">✈️</span><b>Reise</b><span>Weltweit</span></a>
+      <a class="itile"><span class="ti">🐶</span><b>Tier</b><span>Hund &amp; Pferd</span></a>
+      <a class="itile"><span class="ti">🚲</span><b>Bike</b><span>E-Bike</span></a>
+      <a class="itile"><span class="ti">🏥</span><b>Kranken</b><span>Zusatz</span></a>
+      <a class="itile"><span class="ti">⚡</span><b>Unfall</b><span>Privat</span></a>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p><b>Effizient &amp; vollständig.</b> Zeigt Kompetenz-Breite; gut, wenn viele Sparten schnell erreichbar sein sollen.</p></div>
+    <div class="note"><h4>Animation</h4><p>Icon-Tile Hover: Gradient-Fill + Scale, Stagger-Reveal.</p></div>
+    <div class="note"><h4>Responsive</h4><p><code>auto-fit minmax(140px)</code> → passt sich von 2 bis 5+ Spalten an.</p></div>
+  </div></div>
+
+  <footer class="foot">
+    <div class="verdict">Welche <span class="g">Sparten-Sektion?</span></div>
+    <p>Empfehlung: <b>Option A (Bento)</b> für moderne Hierarchie mit Fokus auf BU, <b>Option C (Tabs)</b> für geführte Bedarfs-Segmentierung (perfekt zur Branche), <b>Option B</b> als sichere, konversionsstarke Basis. <b>D</b> = mobil-verspielt, <b>E</b> = maximale Übersicht.</p>
+    <p style="font-size:.74rem;color:#94a3b8;margin-top:1.4rem">In Produktion: <b>FAQPage-Schema</b> ergänzbar · answer-first Texte · „beste/günstigste" nur mit Beleg (IDD).</p>
+  </footer>
+
+<script>
+  // reveal
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.18});
+  document.querySelectorAll('.rv,.stagger').forEach(function(el){io.observe(el);});
+  // tabs C
+  document.querySelectorAll('#tabsC .tab').forEach(function(t){t.addEventListener('click',function(){
+    document.querySelectorAll('#tabsC .tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));document.getElementById(t.dataset.p).classList.add('show');});});
+  // carousel D
+  (function(){var rail=document.getElementById('railD');if(!rail)return;document.querySelectorAll('.railnav button').forEach(function(b){b.addEventListener('click',function(){rail.scrollBy({left:(+b.dataset.dir)*Math.min(320,rail.clientWidth*.8),behavior:'smooth'});});});})();
+</script>
+</body>
+</html>
