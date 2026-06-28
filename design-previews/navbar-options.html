@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>POLICITY — 5 Navbar/Header-Optionen · Sektion 1</title>
+<!-- DSGVO: Bunny Fonts = EU-CDN, kein Google-Request. In Produktion via next/font self-hosted. -->
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=sora:400,500,600,700,800|inter:400,500,600" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1d6ff2;
+    --blue-deep:#1657d6;
+    --turq:#06b6d4;
+    --turq-deep:#0e9bb5;
+    --coral:#ff6b5e;
+    --coral-deep:#f5564a;
+    --ink:#0f172a;
+    --slate:#475569;
+    --muted:#64748b;
+    --line:#e6edf5;
+    --paper:#ffffff;
+    --soft:#f4f8fc;
+    --grad:linear-gradient(135deg,var(--blue),var(--turq));
+    --grad-coral:linear-gradient(135deg,#ff8a5e,var(--coral));
+    --sora:'Sora',system-ui,sans-serif;
+    --inter:'Inter',system-ui,sans-serif;
+    --ease:cubic-bezier(.22,1,.36,1);
+    --shadow:0 18px 50px -24px rgba(15,73,153,.4);
+    --shadow-sm:0 8px 24px -14px rgba(15,73,153,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--inter);background:var(--soft);color:var(--ink);overflow-x:hidden}
+  img{max-width:100%;height:auto;display:block}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--blue);color:#fff}
+
+  /* ---------- Intro ---------- */
+  .intro{padding:clamp(2.5rem,6vw,5rem) clamp(1.25rem,5vw,4rem) clamp(1.5rem,3vw,2.5rem);max-width:1100px;margin-inline:auto;text-align:center}
+  .kicker{font-family:var(--sora);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--blue);font-weight:600}
+  .intro h1{font-family:var(--sora);font-weight:800;font-size:clamp(2.1rem,1.2rem+4.2vw,4.2rem);line-height:1.05;margin:.7rem 0 .9rem;letter-spacing:-.02em}
+  .intro h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .intro p{color:var(--muted);max-width:60ch;margin-inline:auto;font-size:clamp(.95rem,.9rem+.3vw,1.08rem);line-height:1.7}
+  .intro .hint{margin-top:1.4rem;font-size:.82rem;color:#94a3b8}
+  .intro .hint b{color:var(--coral)}
+  .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--turq);margin:0 .7rem;vertical-align:middle}
+
+  /* ---------- Option frame ---------- */
+  .opt-label{position:sticky;top:0;z-index:60;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;
+    padding:.85rem clamp(1.25rem,5vw,4rem);background:var(--ink);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+  .opt-tag{font-family:var(--sora);font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+    color:#fff;background:var(--grad);padding:.34rem .7rem;border-radius:6px}
+  .opt-name{font-family:var(--sora);font-size:1.2rem;font-weight:600}
+  .opt-meta{margin-left:auto;font-size:.74rem;color:#9fb2cc;max-width:48ch}
+  .opt-meta b{color:#7fd6e6;font-weight:600}
+
+  .stage{position:relative;height:150vh}
+  .sentinel{position:absolute;top:0;height:80px;width:100%;pointer-events:none}
+  .hero{position:sticky;top:0;height:100vh;min-height:100svh;overflow:hidden;display:grid;background:var(--soft)}
+  .hero-content{position:relative;z-index:5;align-self:center;padding:0 clamp(1.5rem,6vw,7rem);max-width:1320px;margin-inline:auto;width:100%}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sora);font-size:.74rem;letter-spacing:.04em;font-weight:600;color:var(--blue);
+    background:#eaf2ff;border:1px solid #d4e4ff;padding:.4rem .8rem;border-radius:999px;
+    opacity:0;transform:translateY(14px);transition:all .8s var(--ease) .2s}
+  .hero-h{font-family:var(--sora);font-weight:800;font-size:clamp(2.4rem,1.4rem+5vw,5.4rem);line-height:1.04;letter-spacing:-.03em;margin:1rem 0;max-width:15ch;
+    opacity:0;transform:translateY(22px);transition:all .9s var(--ease) .32s}
+  .hero-h .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-sub{color:var(--slate);max-width:44ch;font-size:clamp(1rem,.95rem+.4vw,1.2rem);line-height:1.6;
+    opacity:0;transform:translateY(18px);transition:all .85s var(--ease) .48s}
+  .hero.in .hero-eyebrow,.hero.in .hero-h,.hero.in .hero-sub{opacity:1;transform:none}
+  .hero-cta-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.8rem;opacity:0;transform:translateY(16px);transition:all .85s var(--ease) .6s}
+  .hero.in .hero-cta-row{opacity:1;transform:none}
+
+  /* decorative app mesh */
+  .mesh{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5}
+  .blob.b1{width:42vw;height:42vw;background:#bfe6ff;top:-12vw;right:-8vw}
+  .blob.b2{width:34vw;height:34vw;background:#d6f5ee;bottom:-12vw;left:-6vw}
+  .blob.b3{width:18vw;height:18vw;background:#ffd9d2;top:30%;left:38%}
+  .grid-lines{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(circle at 70% 40%,#000,transparent 70%);opacity:.5}
+
+  /* floating UI card mockup */
+  .ui-card{position:absolute;right:clamp(1.5rem,6vw,7rem);top:50%;transform:translateY(-50%);width:min(38vw,360px);z-index:4;
+    background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:1.2rem;display:none}
+  .ui-card .uc-top{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem}
+  .ui-card .uc-ic{width:38px;height:38px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#fff;font-family:var(--sora);font-weight:700}
+  .ui-card .uc-t{font-family:var(--sora);font-weight:600;font-size:.95rem}
+  .ui-card .uc-s{font-size:.72rem;color:var(--muted)}
+  .ui-card .uc-bar{height:10px;border-radius:6px;background:var(--soft);margin:.55rem 0;overflow:hidden}
+  .ui-card .uc-bar i{display:block;height:100%;background:var(--grad);border-radius:6px;animation:fill 2.4s var(--ease) infinite alternate}
+  @keyframes fill{from{width:35%}to{width:88%}}
+  .ui-card .uc-pill{display:inline-block;margin-top:.6rem;font-size:.72rem;font-weight:600;color:var(--turq-deep);background:#e3fbff;padding:.3rem .6rem;border-radius:999px}
+  @media(min-width:1100px){.ui-card{display:block}.hero-h,.hero-sub{max-width:18ch}}
+
+  .scroll-cue{position:absolute;bottom:2rem;left:clamp(1.5rem,6vw,7rem);z-index:5;display:flex;align-items:center;gap:.7rem;color:var(--muted);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-family:var(--sora);font-weight:500}
+  .scroll-cue .arr{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;animation:bob 2s var(--ease) infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+  /* shared primitives */
+  .nav-links{display:flex;align-items:center;gap:clamp(1.1rem,2vw,2rem);list-style:none}
+  .nav-link{position:relative;font-family:var(--inter);font-size:.92rem;font-weight:500;color:var(--slate);padding:.4rem 0;transition:color .3s var(--ease);display:inline-flex;align-items:center;gap:.35rem}
+  .nav-link::after{content:"";position:absolute;left:0;bottom:-2px;width:100%;height:2px;border-radius:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+  .nav-link:hover{color:var(--ink)}
+  .nav-link:hover::after{transform:scaleX(1)}
+  .nav-link .chev{width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-1px);transition:transform .3s}
+  .has-mega:hover .chev{transform:rotate(225deg) translateY(-1px)}
+  .cta{font-family:var(--sora);font-size:.9rem;font-weight:600;cursor:pointer;border:0;display:inline-flex;align-items:center;gap:.5rem}
+  .cta-fill{background:var(--grad-coral);color:#fff;padding:.78rem 1.4rem;border-radius:12px;box-shadow:0 12px 26px -12px rgba(245,86,74,.7);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+  .cta-fill:hover{transform:translateY(-2px);box-shadow:0 18px 34px -12px rgba(245,86,74,.8)}
+  .cta-blue{background:var(--grad);color:#fff;padding:.78rem 1.4rem;border-radius:12px;box-shadow:0 12px 26px -14px rgba(29,111,242,.8);transition:transform .3s var(--ease)}
+  .cta-blue:hover{transform:translateY(-2px)}
+  .cta-ghost{background:#fff;color:var(--ink);border:1px solid var(--line);padding:.78rem 1.4rem;border-radius:12px;transition:border-color .3s,transform .3s}
+  .cta-ghost:hover{border-color:var(--blue);transform:translateY(-2px)}
+  .cta .arrow{transition:transform .3s var(--ease)}
+  .cta:hover .arrow{transform:translateX(4px)}
+
+  /* brand logo */
+  .brand{font-family:var(--sora);font-weight:700;font-size:1.3rem;letter-spacing:-.02em;color:var(--ink);display:inline-flex;align-items:center;gap:.6rem}
+  .brand .mark{width:34px;height:34px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800;font-size:1rem;box-shadow:var(--shadow-sm)}
+  .brand .mark.coral{background:var(--grad-coral)}
+  .brand b{font-weight:700}
+
+  .burger{display:none;width:44px;height:44px;border:1px solid var(--line);background:#fff;border-radius:11px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+  .burger span{width:20px;height:2px;border-radius:2px;background:var(--ink);transition:.32s var(--ease)}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* mega dropdown (Option B) */
+  .mega{position:absolute;left:50%;top:calc(100% + 14px);transform:translateX(-50%) translateY(10px);width:min(680px,90vw);
+    background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:1.2rem;
+    opacity:0;visibility:hidden;transition:all .35s var(--ease);z-index:70}
+  .mega-wrap:hover .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .mega-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+  .mega-item{display:flex;gap:.7rem;align-items:flex-start;padding:.7rem;border-radius:12px;transition:background .25s}
+  .mega-item:hover{background:var(--soft)}
+  .mega-item .mi-ic{width:36px;height:36px;border-radius:10px;background:#eaf2ff;color:var(--blue);display:grid;place-items:center;flex:none;font-size:1.1rem}
+  .mega-item .mi-t{font-family:var(--sora);font-weight:600;font-size:.88rem}
+  .mega-item .mi-s{font-size:.74rem;color:var(--muted);line-height:1.4}
+
+  /* Mobile sheet */
+  .sheet{position:fixed;inset:0;z-index:90;background:#fff;display:flex;flex-direction:column;padding:5rem clamp(1.5rem,8vw,4rem) 2rem;
+    opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .35s var(--ease)}
+  .sheet.open{opacity:1;visibility:visible;transform:none}
+  .sheet a{font-family:var(--sora);font-size:1.5rem;font-weight:600;padding:.7rem 0;border-bottom:1px solid var(--line);color:var(--ink)}
+  .sheet .sheet-cta{margin-top:1.6rem;align-self:stretch;justify-content:center}
+  .sheet-close{position:absolute;top:1.4rem;right:1.4rem;width:46px;height:46px;border:1px solid var(--line);background:#fff;border-radius:11px;font-size:1.4rem;cursor:pointer;color:var(--ink)}
+  .sheet-brand{position:absolute;top:1.5rem;left:clamp(1.5rem,8vw,4rem)}
+
+  /* ====== OPTION A — App Pill (floating) ====== */
+  .navA{position:sticky;top:clamp(.7rem,1.8vw,1.2rem);z-index:50;padding:0 clamp(1rem,4vw,3rem);transition:top .4s var(--ease)}
+  .navA-pill{max-width:1200px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:1.2rem;
+    background:rgba(255,255,255,.85);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:18px;
+    padding:.6rem .7rem .6rem 1.3rem;box-shadow:var(--shadow-sm);transition:box-shadow .4s var(--ease)}
+  .navA.solid .navA-pill{box-shadow:var(--shadow)}
+  .navA .nav-links{position:absolute;left:50%;transform:translateX(-50%)}
+  .navA-pill .right{display:flex;align-items:center;gap:.8rem}
+
+  /* ====== OPTION B — Full-width + Mega ====== */
+  .navB{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);transition:box-shadow .4s var(--ease),border-color .4s}
+  .navB{border-bottom:1px solid transparent}
+  .navB.solid{box-shadow:var(--shadow-sm);border-bottom-color:var(--line)}
+  .navB-inner{max-width:1280px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:clamp(.9rem,1.6vw,1.2rem) clamp(1.5rem,6vw,4rem)}
+  .navB .center{display:flex}
+
+  /* ====== OPTION C — Gradient bold bar ====== */
+  .navC{position:sticky;top:0;z-index:50;background:var(--grad);transition:padding .4s var(--ease)}
+  .navC-inner{max-width:1280px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:clamp(1rem,1.8vw,1.4rem) clamp(1.5rem,6vw,4rem);transition:padding .4s var(--ease)}
+  .navC.solid .navC-inner{padding-top:.7rem;padding-bottom:.7rem}
+  .navC .brand{color:#fff}
+  .navC .brand .mark{background:#fff;color:var(--blue)}
+  .navC .nav-link{color:rgba(255,255,255,.9)}
+  .navC .nav-link::after{background:#fff}
+  .navC .nav-link:hover{color:#fff}
+  .navC .cta-fill{background:#fff;color:var(--ink);box-shadow:0 10px 24px -12px rgba(0,0,0,.4)}
+  .navC .cta-fill .arrow{color:var(--coral)}
+  .stageC .hero{background:#fff}
+  .stageC .burger{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
+  .stageC .burger span{background:#fff}
+
+  /* ====== OPTION D — Minimal + trust strip ====== */
+  .trust{background:var(--ink);color:#cbd9ec;font-size:.74rem;font-family:var(--inter)}
+  .trust-inner{max-width:1280px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.5rem clamp(1.5rem,6vw,4rem)}
+  .trust .stars{color:#ffc24b;letter-spacing:1px}
+  .trust .reg{color:#7fd6e6}
+  .trust .t-right{display:flex;gap:1.4rem}
+  .navD{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);transition:box-shadow .4s var(--ease)}
+  .navD.solid{box-shadow:var(--shadow-sm)}
+  .navD-inner{max-width:1280px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:clamp(1rem,1.7vw,1.3rem) clamp(1.5rem,6vw,4rem)}
+  .navD .brand .mark{background:#fff;border:1.5px solid var(--blue);color:var(--blue);box-shadow:none}
+  .navD .cta-blue{background:var(--ink)}
+
+  /* ====== OPTION E — App-shell left rail ====== */
+  .stageE{height:150vh}
+  .railE-wrap{position:sticky;top:0;z-index:50;height:0}
+  .railE{position:absolute;top:0;left:0;height:100vh;width:84px;background:#fff;border-right:1px solid var(--line);
+    display:flex;flex-direction:column;align-items:center;padding:1.4rem 0;gap:1.6rem;z-index:55;box-shadow:var(--shadow-sm)}
+  .railE .rmark{width:42px;height:42px;border-radius:12px;background:var(--grad);display:grid;place-items:center;color:#fff;font-family:var(--sora);font-weight:800;font-size:1.1rem;box-shadow:var(--shadow-sm)}
+  .railE .ricons{display:flex;flex-direction:column;gap:.5rem;margin-top:.8rem;flex:1}
+  .railE .ri{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:var(--muted);font-size:1.15rem;position:relative;transition:.3s var(--ease);cursor:pointer}
+  .railE .ri:hover,.railE .ri.active{background:#eaf2ff;color:var(--blue)}
+  .railE .ri .tip{position:absolute;left:calc(100% + 10px);top:50%;transform:translateY(-50%) translateX(-6px);white-space:nowrap;
+    background:var(--ink);color:#fff;font-family:var(--sora);font-size:.72rem;font-weight:500;padding:.35rem .6rem;border-radius:8px;opacity:0;visibility:hidden;transition:.25s var(--ease);pointer-events:none}
+  .railE .ri:hover .tip{opacity:1;visibility:visible;transform:translateY(-50%) translateX(0)}
+  .railE .rbtn{width:46px;height:46px;border-radius:12px;background:var(--grad-coral);color:#fff;display:grid;place-items:center;font-size:1.2rem;box-shadow:0 10px 22px -10px rgba(245,86,74,.7)}
+  .topE{position:sticky;top:0;z-index:48;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);transition:box-shadow .4s var(--ease)}
+  .topE.solid{box-shadow:var(--shadow-sm)}
+  .topE-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:clamp(.9rem,1.6vw,1.2rem) clamp(1.5rem,5vw,3rem);padding-left:calc(84px + clamp(1.5rem,5vw,3rem))}
+  .topE .pagetitle{font-family:var(--sora);font-weight:600;font-size:1rem;color:var(--ink)}
+  .stageE .hero-content{padding-left:calc(84px + clamp(1.5rem,6vw,7rem))}
+  .stageE .hero{background:var(--soft)}
+
+  /* notes */
+  .notes{background:#fff;border-top:1px solid var(--line);padding:clamp(1.6rem,3vw,2.4rem) clamp(1.5rem,6vw,7rem)}
+  .notes-grid{max-width:1320px;margin-inline:auto;display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+  .note h4{font-family:var(--sora);font-weight:700;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem}
+  .note p{font-size:.88rem;line-height:1.6;color:var(--slate)}
+  .note p b{color:var(--ink);font-weight:600}
+
+  /* footer */
+  .foot{padding:clamp(2.5rem,6vw,5rem) clamp(1.5rem,6vw,4rem);text-align:center;background:var(--soft);border-top:1px solid var(--line)}
+  .foot .verdict{font-family:var(--sora);font-weight:800;font-size:clamp(1.5rem,1rem+2vw,2.4rem);letter-spacing:-.02em;margin-bottom:1rem}
+  .foot .verdict .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .foot p{color:var(--muted);max-width:62ch;margin:.4rem auto;font-size:.92rem;line-height:1.7}
+  .foot p b{color:var(--coral)}
+  .foot .legal{font-size:.74rem;color:#94a3b8;margin-top:1.5rem}
+  .foot .legal b{color:var(--blue)}
+
+  @media (max-width:880px){
+    .nav-links,.opt-meta,.navA .nav-links,.navB .center,.trust .t-right span:not(.reg){display:none}
+    .burger{display:flex}
+    .ui-card{display:none}
+    .navA .nav-links{position:static;transform:none}
+    .railE{width:64px}
+    .railE .ricons,.railE .rbtn{display:none}
+    .stageE .hero-content,.topE-inner{padding-left:calc(64px + clamp(1.2rem,5vw,2rem))}
+    .topE .pagetitle{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+  <header class="intro">
+    <div class="kicker">POLICITY · Sektion 1 · Navbar / Header</div>
+    <h1>Versicherung. <span class="g">Endlich einfach.</span></h1>
+    <p>Fünf radikal unterschiedliche Navbar-/Header-Konzepte für ein digital-affines Versicherungs-Startup — weiß, frisches Blau/Türkis, Coral-Akzent, app-artig. Jede Option ist live: in den Stage reinscrollen (Scroll-State), Links hovern, „Versicherungen"-Mega-Menü testen (Option B), Fenster schmal ziehen fürs Mobile-Menü.</p>
+    <div class="hint">Platzhalter-Daten · Sora/Inter via Bunny (EU/DSGVO) · echte Unsplash-Bilder<span class="dot"></span>Wähle danach <b>eine Option</b> mit „Weiter / Option X"</div>
+  </header>
+
+  <!-- ===== OPTION A ===== -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option A</span><span class="opt-name">App Pill</span>
+      <span class="opt-meta">Schwebende, abgerundete Glas-Pille mit zentrierter Nav · Coral-Gradient-CTA · <b>App-Store-Anmutung.</b></span></div>
+    <div class="stage">
+      <div class="sentinel" data-nav="navA"></div>
+      <nav class="navA" id="navA"><div class="navA-pill">
+        <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+        <ul class="nav-links">
+          <li><a class="nav-link" href="#">Versicherungen</a></li>
+          <li><a class="nav-link" href="#">So geht's</a></li>
+          <li><a class="nav-link" href="#">Über uns</a></li>
+        </ul>
+        <div class="right">
+          <a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a>
+          <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+        </div>
+      </div></nav>
+      <div class="hero">
+        <div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="grid-lines"></span></div>
+        <div class="ui-card">
+          <div class="uc-top"><div class="uc-ic">✓</div><div><div class="uc-t">Dein Schutz-Score</div><div class="uc-s">In 3 Minuten ermittelt</div></div></div>
+          <div class="uc-bar"><i></i></div><div class="uc-bar"><i style="animation-delay:.4s"></i></div>
+          <span class="uc-pill">● Optimal abgesichert</span>
+        </div>
+        <div class="hero-content">
+          <div class="hero-eyebrow">⚡ In 3 Minuten zum Überblick</div>
+          <h1 class="hero-h">Versicherung,<br><span class="g">endlich einfach.</span></h1>
+          <p class="hero-sub">Vergleichen, verstehen, absichern — digital und persönlich. Ohne Kleingedrucktes, ohne Termin-Stress.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a><a class="cta cta-ghost" href="#">So funktioniert's</a></div>
+        </div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div>
+      </div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p>Modern & freundlich wie eine <b>Fintech-App</b>. Die schwebende Pille mit zentrierter Nav wirkt leicht und „digital-first".</p></div>
+      <div class="note"><h4>Animation</h4><p>Pille mit weicher <b>Schatten-Vertiefung beim Scroll</b>. Coral-CTA mit Lift + Pfeil-Glide. Hero-UI-Card mit animiertem Score-Balken.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Zentrale Nav kollabiert in <b>Burger → Sheet</b>, CTA bleibt sichtbar. Touch-Ziele ≥44px.</p></div>
+    </div></div>
+  </section>
+
+  <!-- ===== OPTION B ===== -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option B</span><span class="opt-name">Full-Width + Mega-Menü</span>
+      <span class="opt-meta">Klassische Vollbreite-Nav, „Versicherungen" öffnet ein <b>Mega-Dropdown mit Themen-Kacheln</b> (Icons).</span></div>
+    <div class="stage">
+      <div class="sentinel" data-nav="navB"></div>
+      <nav class="navB" id="navB"><div class="navB-inner">
+        <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+        <ul class="nav-links center">
+          <li class="mega-wrap" style="position:relative"><a class="nav-link has-mega" href="#">Versicherungen <span class="chev"></span></a>
+            <div class="mega"><div class="mega-grid">
+              <a class="mega-item"><span class="mi-ic">🚗</span><span><span class="mi-t">Kfz</span><span class="mi-s">Auto & Motorrad</span></span></a>
+              <a class="mega-item"><span class="mi-ic">🏠</span><span><span class="mi-t">Hausrat</span><span class="mi-s">Zuhause schützen</span></span></a>
+              <a class="mega-item"><span class="mi-ic">⚖️</span><span><span class="mi-t">Haftpflicht</span><span class="mi-s">Privat & Familie</span></span></a>
+              <a class="mega-item"><span class="mi-ic">🦷</span><span><span class="mi-t">Zahn</span><span class="mi-s">Zusatzschutz</span></span></a>
+              <a class="mega-item"><span class="mi-ic">🛡️</span><span><span class="mi-t">BU</span><span class="mi-s">Berufsunfähigkeit</span></span></a>
+              <a class="mega-item"><span class="mi-ic">✈️</span><span><span class="mi-t">Reise</span><span class="mi-s">Weltweit sorglos</span></span></a>
+            </div></div>
+          </li>
+          <li><a class="nav-link" href="#">So geht's</a></li>
+          <li><a class="nav-link" href="#">Über uns</a></li>
+        </ul>
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a>
+          <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+        </div>
+      </div></nav>
+      <div class="hero">
+        <div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="grid-lines"></span></div>
+        <div class="hero-content">
+          <div class="hero-eyebrow">🔎 Alle Sparten an einem Ort</div>
+          <h1 class="hero-h">Dein Schutz —<br><span class="g">in einem Klick.</span></h1>
+          <p class="hero-sub">Von Kfz bis Berufsunfähigkeit: transparent vergleichen und digital abschließen. Wir zeigen ehrlich, welcher Marktausschnitt geprüft wurde.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a><a class="cta cta-ghost" href="#">Sparten ansehen</a></div>
+        </div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div>
+      </div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p>Vertraut & übersichtlich. Das <b>Mega-Menü</b> bedient direkt die „Themen-Auswahl/Segmentierung" der Branche — top für viele Sparten.</p></div>
+      <div class="note"><h4>Animation</h4><p>Dropdown faded mit Slide-up auf, Kacheln mit Hover-Fläche. Chevron dreht. Nav verfestigt sich (Border + Schatten) beim Scroll.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Mega → im Sheet als aufklappbare Liste. CTA bleibt prominent. Container-freundlich.</p></div>
+    </div></div>
+  </section>
+
+  <!-- ===== OPTION C ===== -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option C</span><span class="opt-name">Gradient Bold Bar</span>
+      <span class="opt-meta">Vollfarbiger Blau→Türkis-Gradient-Header, weiße Schrift, weißer CTA · <b>energiegeladen, jung, mutig.</b></span></div>
+    <div class="stageC stage">
+      <div class="sentinel" data-nav="navC"></div>
+      <nav class="navC" id="navC"><div class="navC-inner">
+        <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+        <ul class="nav-links">
+          <li><a class="nav-link" href="#">Versicherungen</a></li>
+          <li><a class="nav-link" href="#">So geht's</a></li>
+          <li><a class="nav-link" href="#">Über uns</a></li>
+        </ul>
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a>
+          <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+        </div>
+      </div></nav>
+      <div class="hero">
+        <div class="mesh"><span class="blob b1" style="background:#d7ecff"></span><span class="blob b2" style="background:#dbfff5"></span><span class="blob b3"></span></div>
+        <div class="hero-content">
+          <div class="hero-eyebrow">😊 Über 50.000 zufriedene Kund:innen</div>
+          <h1 class="hero-h">Endlich Versicherung,<br><span class="g">die Spaß macht.</span></h1>
+          <p class="hero-sub">Klar, fair und in deiner Sprache. Wir machen Absicherung so einfach wie deine Lieblings-App.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#" style="background:var(--grad-coral);color:#fff">Jetzt beraten lassen <span class="arrow">→</span></a></div>
+        </div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div>
+      </div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p>Maximale Energie & Jugendlichkeit. Der <b>Vollfarb-Gradient</b> ist mutig, hebt sich stark ab — ideal für eine junge Zielgruppe.</p></div>
+      <div class="note"><h4>Animation</h4><p>Bar schrumpft beim Scroll (kompakter). Weiße Underline-Reveals, CTA-Lift. Hero mit Stagger-Reveal.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Heller Burger auf Gradient, weißes Sheet. Kontrast WCAG-geprüft (weiß auf Blau/Türkis).</p></div>
+    </div></div>
+  </section>
+
+  <!-- ===== OPTION D ===== -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option D</span><span class="opt-name">Minimal + Trust-Strip</span>
+      <span class="opt-meta">Cleaner weißer Header, animierte Underlines, dazu <b>dünner Trust-Strip</b> (Bewertung + §34-Transparenz).</span></div>
+    <div class="stage">
+      <div class="sentinel" data-nav="navD"></div>
+      <div style="position:sticky;top:0;z-index:51">
+        <div class="trust"><div class="trust-inner">
+          <span><span class="stars">★★★★★</span> 4,9/5 · 2.300+ Bewertungen</span>
+          <span class="t-right"><span class="reg">Erlaubnis § 34d GewO · Reg-Nr. D-XXXX</span><span>Mo–Fr 8–20 Uhr</span></span>
+        </div></div>
+        <nav class="navD" id="navD"><div class="navD-inner">
+          <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+          <ul class="nav-links">
+            <li><a class="nav-link" href="#">Versicherungen</a></li>
+            <li><a class="nav-link" href="#">So geht's</a></li>
+            <li><a class="nav-link" href="#">Über uns</a></li>
+          </ul>
+          <div style="display:flex;align-items:center;gap:.8rem">
+            <a class="cta cta-blue" href="#">Jetzt beraten lassen <span class="arrow">→</span></a>
+            <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+          </div>
+        </div></nav>
+      </div>
+      <div class="hero">
+        <div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="grid-lines"></span></div>
+        <div class="hero-content">
+          <div class="hero-eyebrow">🛡️ Unabhängig &amp; transparent beraten</div>
+          <h1 class="hero-h">Absicherung,<br><span class="g">der man vertraut.</span></h1>
+          <p class="hero-sub">Ehrliche Beratung ohne Verkaufsdruck. Wir legen Marktausschnitt und Vergütung offen — und du entscheidest in Ruhe.</p>
+          <div class="hero-cta-row"><a class="cta cta-blue" href="#" style="background:var(--ink)">Jetzt beraten lassen <span class="arrow">→</span></a><a class="cta cta-ghost" href="#">Mehr erfahren</a></div>
+        </div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div>
+      </div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p>Ruhig, seriös, sehr vertrauenswürdig. Der <b>Trust-Strip</b> kombiniert Social Proof (Sterne) mit Pflicht-Transparenz (§34d) — perfekt für reguliertes Vertrauen.</p></div>
+      <div class="note"><h4>Animation</h4><p>Dezente Gradient-Underline-Reveals, weiche Schatten-Erhebung beim Scroll. Zurückhaltend = premium-seriös.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Strip zeigt mobil nur Bewertung + Reg-Nr., Links → Burger/Sheet. Sehr lesbar.</p></div>
+    </div></div>
+  </section>
+
+  <!-- ===== OPTION E ===== -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option E</span><span class="opt-name">App-Shell Left-Rail</span>
+      <span class="opt-meta">Linke Icon-Leiste wie ein SaaS-Dashboard + schlanke Top-Bar · <b>maximaler „digitales Produkt"-Charakter.</b></span></div>
+    <div class="stageE stage">
+      <div class="sentinel" data-nav="topE"></div>
+      <div class="railE-wrap"><aside class="railE">
+        <div class="rmark">P</div>
+        <div class="ricons">
+          <div class="ri active">🏠<span class="tip">Start</span></div>
+          <div class="ri">🛡️<span class="tip">Versicherungen</span></div>
+          <div class="ri">⚙️<span class="tip">So geht's</span></div>
+          <div class="ri">👥<span class="tip">Über uns</span></div>
+          <div class="ri">💬<span class="tip">Chat</span></div>
+        </div>
+        <div class="rbtn">→</div>
+      </aside></div>
+      <div class="topE" id="topE"><div class="topE-inner">
+        <span class="pagetitle">Willkommen bei POLICITY</span>
+        <div style="display:flex;align-items:center;gap:.8rem;margin-left:auto">
+          <a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a>
+          <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+        </div>
+      </div></div>
+      <div class="hero">
+        <div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="grid-lines"></span></div>
+        <div class="hero-content">
+          <div class="hero-eyebrow">📱 Dein Versicherungs-Cockpit</div>
+          <h1 class="hero-h">Alles im Blick.<br><span class="g">Jederzeit.</span></h1>
+          <p class="hero-sub">Verträge, Schäden, Beratung — gebündelt in einem klaren Dashboard. So fühlt sich moderne Absicherung an.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a><a class="cta cta-ghost" href="#">Demo ansehen</a></div>
+        </div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div>
+      </div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p>Stärkster „echtes-Produkt"-Eindruck — wie ein <b>SaaS-Dashboard</b>. Signalisiert sofort: hier ist alles digital steuerbar.</p></div>
+      <div class="note"><h4>Animation</h4><p>Icon-Rail mit Hover-Tooltips & aktivem Zustand, Top-Bar mit Schatten beim Scroll. Coral-Action-Button als Anker.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Rail schrumpft auf 64px (nur Logo), Navigation wandert in Burger/Sheet. Content-Padding passt sich automatisch an.</p></div>
+    </div></div>
+  </section>
+
+  <!-- mobile sheet -->
+  <div class="sheet" id="sheet">
+    <a class="brand sheet-brand" href="#"><span class="mark">P</span>POLICITY</a>
+    <button class="sheet-close" data-close aria-label="Schließen">×</button>
+    <a href="#">Versicherungen</a>
+    <a href="#">So geht's</a>
+    <a href="#">Über uns</a>
+    <a href="#">Chat</a>
+    <a class="cta cta-fill sheet-cta" href="#">Jetzt beraten lassen <span class="arrow">→</span></a>
+  </div>
+
+  <footer class="foot">
+    <div class="verdict">Welche Tür öffnet <span class="g">POLICITY</span>?</div>
+    <p>Meine Empfehlung für ein digitales Versicherungs-Startup: <b>Option A (App Pill)</b> für den klarsten Fintech-Vibe — oder <b>Option B (Mega-Menü)</b>, wenn viele Sparten sauber navigierbar sein müssen. <b>Option D</b> ist die vertrauens-/compliance-stärkste, <b>Option E</b> die mutigste „Produkt"-Aussage.</p>
+    <p class="legal">Footer in Produktion enthält: Impressum · Datenschutz · <b>Erstinformation/Statusangaben (§ 34d GewO)</b> · Transparenz zu Marktausschnitt &amp; Vergütung (IDD) · Cookie-Einstellungen — Pflicht laut Branche-24-Recht. Keine irreführende „beste/günstigste"-Werbung ohne Beleg.</p>
+  </footer>
+
+<script>
+  document.querySelectorAll('.sentinel').forEach(function(s){
+    var id=s.getAttribute('data-nav'); if(!id||id==='none')return;
+    var nav=document.getElementById(id); if(!nav)return;
+    new IntersectionObserver(function(e){e.forEach(function(x){nav.classList.toggle('solid',!x.isIntersecting);});},{threshold:0,rootMargin:'-1px 0px 0px 0px'}).observe(s);
+  });
+  document.querySelectorAll('.hero').forEach(function(h){
+    new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.25}).observe(h);
+  });
+  function closeSheets(){document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('open'));document.querySelectorAll('.burger').forEach(b=>b.classList.remove('open'));}
+  document.querySelectorAll('.burger').forEach(function(b){b.addEventListener('click',function(){var el=document.getElementById(b.getAttribute('data-sheet'));if(el.classList.contains('open')){closeSheets();}else{el.classList.add('open');b.classList.add('open');}});});
+  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeSheets));
+  document.querySelectorAll('.sheet a').forEach(a=>a.addEventListener('click',closeSheets));
+</script>
+</body>
+</html>

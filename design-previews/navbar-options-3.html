@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>POLICITY — Navbar-Optionen K–O · Batch 3</title>
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=sora:400,500,600,700,800|inter:400,500,600" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1d6ff2;--blue-deep:#1657d6;--turq:#06b6d4;--turq-deep:#0e9bb5;
+    --coral:#ff6b5e;--coral-deep:#f5564a;--ink:#0f172a;--slate:#475569;--muted:#64748b;
+    --line:#e6edf5;--paper:#fff;--soft:#f4f8fc;
+    --grad:linear-gradient(135deg,var(--blue),var(--turq));
+    --grad-coral:linear-gradient(135deg,#ff8a5e,var(--coral));
+    --sora:'Sora',system-ui,sans-serif;--inter:'Inter',system-ui,sans-serif;
+    --ease:cubic-bezier(.22,1,.36,1);
+    --shadow:0 18px 50px -24px rgba(15,73,153,.4);--shadow-sm:0 8px 24px -14px rgba(15,73,153,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--inter);background:var(--soft);color:var(--ink);overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--blue);color:#fff}
+
+  .intro{padding:clamp(2.5rem,6vw,5rem) clamp(1.25rem,5vw,4rem) clamp(1.5rem,3vw,2.5rem);max-width:1100px;margin-inline:auto;text-align:center}
+  .kicker{font-family:var(--sora);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--blue);font-weight:600}
+  .intro h1{font-family:var(--sora);font-weight:800;font-size:clamp(2rem,1.2rem+4vw,3.8rem);line-height:1.05;margin:.7rem 0 .9rem;letter-spacing:-.02em}
+  .intro h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .intro p{color:var(--muted);max-width:60ch;margin-inline:auto;font-size:clamp(.95rem,.9rem+.3vw,1.05rem);line-height:1.7}
+  .intro .hint{margin-top:1.2rem;font-size:.82rem;color:#94a3b8}.intro .hint b{color:var(--coral)}
+  .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--turq);margin:0 .7rem;vertical-align:middle}
+
+  .opt-label{position:sticky;top:0;z-index:60;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;padding:.85rem clamp(1.25rem,5vw,4rem);background:var(--ink);color:#fff}
+  .opt-tag{font-family:var(--sora);font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--grad);padding:.34rem .7rem;border-radius:6px}
+  .opt-name{font-family:var(--sora);font-size:1.2rem;font-weight:600}
+  .opt-meta{margin-left:auto;font-size:.74rem;color:#9fb2cc;max-width:48ch}.opt-meta b{color:#7fd6e6;font-weight:600}
+
+  .stage{position:relative;height:150vh}
+  .sentinel{position:absolute;top:0;height:80px;width:100%;pointer-events:none}
+  .hero{position:sticky;top:0;height:100vh;min-height:100svh;overflow:hidden;display:grid;background:var(--soft)}
+  .hero-content{position:relative;z-index:5;align-self:center;padding:0 clamp(1.5rem,6vw,7rem);max-width:1320px;margin-inline:auto;width:100%}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sora);font-size:.74rem;font-weight:600;color:var(--blue);background:#eaf2ff;border:1px solid #d4e4ff;padding:.4rem .8rem;border-radius:999px;opacity:0;transform:translateY(14px);transition:all .8s var(--ease) .2s}
+  .hero-h{font-family:var(--sora);font-weight:800;font-size:clamp(2.3rem,1.4rem+4.6vw,5rem);line-height:1.04;letter-spacing:-.03em;margin:1rem 0;max-width:15ch;opacity:0;transform:translateY(22px);transition:all .9s var(--ease) .32s}
+  .hero-h .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-sub{color:var(--slate);max-width:44ch;font-size:clamp(1rem,.95rem+.3vw,1.15rem);line-height:1.6;opacity:0;transform:translateY(18px);transition:all .85s var(--ease) .48s}
+  .hero.in .hero-eyebrow,.hero.in .hero-h,.hero.in .hero-sub{opacity:1;transform:none}
+  .hero-cta-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.8rem;opacity:0;transform:translateY(16px);transition:all .85s var(--ease) .6s}
+  .hero.in .hero-cta-row{opacity:1;transform:none}
+  .mesh{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5}
+  .blob.b1{width:42vw;height:42vw;background:#bfe6ff;top:-12vw;right:-8vw}
+  .blob.b2{width:34vw;height:34vw;background:#d6f5ee;bottom:-12vw;left:-6vw}
+  .blob.b3{width:18vw;height:18vw;background:#ffd9d2;top:30%;left:40%}
+  .grid-lines{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(circle at 70% 40%,#000,transparent 70%);opacity:.5}
+  .scroll-cue{position:absolute;bottom:2rem;left:clamp(1.5rem,6vw,7rem);z-index:5;display:flex;align-items:center;gap:.7rem;color:var(--muted);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-family:var(--sora);font-weight:500}
+  .scroll-cue .arr{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;animation:bob 2s var(--ease) infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+  .nav-links{display:flex;align-items:center;gap:clamp(1.1rem,2vw,2rem);list-style:none}
+  .nav-link{position:relative;font-size:.92rem;font-weight:500;color:var(--slate);padding:.4rem 0;transition:color .3s var(--ease)}
+  .nav-link::after{content:"";position:absolute;left:0;bottom:-2px;width:100%;height:2px;border-radius:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+  .nav-link:hover{color:var(--ink)}.nav-link:hover::after{transform:scaleX(1)}
+  .cta{font-family:var(--sora);font-size:.9rem;font-weight:600;cursor:pointer;border:0;display:inline-flex;align-items:center;gap:.5rem}
+  .cta-fill{background:var(--grad-coral);color:#fff;padding:.78rem 1.4rem;border-radius:12px;box-shadow:0 12px 26px -12px rgba(245,86,74,.7);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+  .cta-fill:hover{transform:translateY(-2px);box-shadow:0 18px 34px -12px rgba(245,86,74,.8)}
+  .cta-ghost{background:#fff;color:var(--ink);border:1px solid var(--line);padding:.78rem 1.4rem;border-radius:12px;transition:border-color .3s,transform .3s}
+  .cta-ghost:hover{border-color:var(--blue);transform:translateY(-2px)}
+  .cta .arrow{transition:transform .3s var(--ease)}.cta:hover .arrow{transform:translateX(4px)}
+  .brand{font-family:var(--sora);font-weight:700;font-size:1.3rem;letter-spacing:-.02em;color:var(--ink);display:inline-flex;align-items:center;gap:.6rem}
+  .brand .mark{width:34px;height:34px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800;font-size:1rem;box-shadow:var(--shadow-sm)}
+  .burger{display:none;width:44px;height:44px;border:1px solid var(--line);background:#fff;border-radius:11px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+  .burger span{width:20px;height:2px;border-radius:2px;background:var(--ink);transition:.32s var(--ease)}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* ===== K — Segmented pill nav ===== */
+  .navK{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);transition:box-shadow .4s}
+  .navK.solid{box-shadow:var(--shadow-sm)}
+  .navK-inner{max-width:1280px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:1.4rem;padding:clamp(.9rem,1.5vw,1.2rem) clamp(1.5rem,6vw,4rem)}
+  .seg{position:relative;display:flex;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:.3rem}
+  .seg a{position:relative;z-index:2;font-family:var(--sora);font-weight:500;font-size:.86rem;color:var(--slate);padding:.5rem .95rem;border-radius:10px;transition:color .3s var(--ease)}
+  .seg a.active{color:#fff}
+  .seg .ind{position:absolute;z-index:1;top:.3rem;bottom:.3rem;border-radius:10px;background:var(--grad);box-shadow:var(--shadow-sm);transition:left .4s var(--ease),width .4s var(--ease)}
+
+  /* ===== L — Trust-forward bar ===== */
+  .navL{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);transition:box-shadow .4s}
+  .navL.solid{box-shadow:var(--shadow-sm)}
+  .navL-inner{max-width:1280px;margin-inline:auto;display:flex;align-items:center;gap:1.4rem;padding:clamp(.85rem,1.4vw,1.15rem) clamp(1.5rem,6vw,4rem)}
+  .navL .nav-links{margin-left:1rem}
+  .trust{margin-left:auto;display:flex;align-items:center;gap:1.1rem;padding-right:1.1rem;border-right:1px solid var(--line)}
+  .trust .t{display:flex;flex-direction:column;line-height:1.15}
+  .trust .t b{font-family:var(--sora);font-weight:700;font-size:.92rem;color:var(--ink);display:flex;align-items:center;gap:.3rem}
+  .trust .t span{font-size:.66rem;color:var(--muted)}
+  .trust .stars{color:#f5b50a;letter-spacing:1px}
+  .badge{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--sora);font-size:.7rem;font-weight:600;color:var(--turq-deep);background:#e3fbff;border:1px solid #c4f2f9;padding:.32rem .6rem;border-radius:8px}
+
+  /* ===== M — Gradient full-bleed bar ===== */
+  .navM{position:sticky;top:0;z-index:50;background:var(--grad);transition:box-shadow .4s,background .4s}
+  .navM.solid{box-shadow:0 12px 30px -16px rgba(15,73,153,.7)}
+  .navM-inner{max-width:1280px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:1.4rem;padding:clamp(.9rem,1.5vw,1.2rem) clamp(1.5rem,6vw,4rem)}
+  .navM .brand{color:#fff}.navM .brand .mark{background:#fff;color:var(--blue)}
+  .navM .nav-link{color:rgba(255,255,255,.85)}.navM .nav-link:hover{color:#fff}
+  .navM .nav-link::after{background:#fff}
+  .navM .cta-fill{background:#fff;color:var(--blue-deep);box-shadow:0 12px 26px -14px rgba(0,0,0,.5)}
+  .navM .burger{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
+  .navM .burger span{background:#fff}
+  .stageM .hero{background:#eef6ff}
+
+  /* ===== N — Persistent icon rail (app shell) ===== */
+  .stageN .hero-content{padding-left:calc(76px + clamp(1.5rem,6vw,7rem))}
+  .railN{position:sticky;top:0;z-index:55;height:0}
+  .irail{position:absolute;top:0;left:0;height:100vh;width:76px;background:#fff;border-right:1px solid var(--line);
+    display:flex;flex-direction:column;align-items:center;padding:1.1rem 0;gap:.4rem;box-shadow:var(--shadow-sm)}
+  .irail .ibrand{width:42px;height:42px;border-radius:12px;background:var(--grad);display:grid;place-items:center;color:#fff;font-family:var(--sora);font-weight:800;margin-bottom:1rem}
+  .irail .iitem{position:relative;width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-size:1.25rem;color:var(--muted);transition:.25s var(--ease)}
+  .irail .iitem:hover,.irail .iitem.active{background:#eaf2ff;color:var(--blue)}
+  .irail .iitem .tip{position:absolute;left:58px;top:50%;transform:translateY(-50%) translateX(-6px);white-space:nowrap;background:var(--ink);color:#fff;font-family:var(--sora);font-size:.72rem;font-weight:500;padding:.35rem .6rem;border-radius:8px;opacity:0;pointer-events:none;transition:.25s var(--ease)}
+  .irail .iitem:hover .tip{opacity:1;transform:translateY(-50%) translateX(0)}
+  .irail .ispacer{margin-top:auto}
+  .irail .ifab{width:48px;height:48px;border-radius:14px;background:var(--grad-coral);color:#fff;display:grid;place-items:center;font-size:1.3rem;box-shadow:0 12px 22px -10px rgba(245,86,74,.8)}
+  .topN{position:sticky;top:0;z-index:50;margin-left:76px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);transition:box-shadow .4s}
+  .topN.solid{box-shadow:var(--shadow-sm)}
+  .topN-inner{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding:clamp(.85rem,1.4vw,1.1rem) clamp(1.5rem,5vw,3rem)}
+  .topN .crumb{font-family:var(--sora);font-weight:600;color:var(--ink);font-size:1rem}
+
+  /* ===== O — Announcement rotator + nav ===== */
+  .navO{position:sticky;top:0;z-index:50}
+  .announce{background:var(--ink);color:#fff;overflow:hidden}
+  .announce-inner{max-width:1280px;margin-inline:auto;height:38px;display:flex;align-items:center;justify-content:center;position:relative}
+  .ann-msg{position:absolute;font-family:var(--sora);font-size:.8rem;font-weight:500;display:inline-flex;align-items:center;gap:.5rem;opacity:0;transform:translateY(8px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .ann-msg.show{opacity:1;transform:none}
+  .ann-msg b{color:#7fd6e6}
+  .navO-bar{background:rgba(255,255,255,.9);backdrop-filter:blur(12px);transition:box-shadow .4s}
+  .navO.solid .navO-bar{box-shadow:var(--shadow-sm)}
+  .navO-inner{max-width:1280px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:1.4rem;padding:clamp(.9rem,1.5vw,1.2rem) clamp(1.5rem,6vw,4rem)}
+
+  .notes{background:#fff;border-top:1px solid var(--line);padding:clamp(1.6rem,3vw,2.4rem) clamp(1.5rem,6vw,7rem)}
+  .notes-grid{max-width:1320px;margin-inline:auto;display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+  .note h4{font-family:var(--sora);font-weight:700;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem}
+  .note p{font-size:.88rem;line-height:1.6;color:var(--slate)}.note p b{color:var(--ink);font-weight:600}
+
+  .sheet{position:fixed;inset:0;z-index:90;background:#fff;display:flex;flex-direction:column;padding:5rem clamp(1.5rem,8vw,4rem) 2rem;opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .35s var(--ease)}
+  .sheet.open{opacity:1;visibility:visible;transform:none}
+  .sheet a{font-family:var(--sora);font-size:1.5rem;font-weight:600;padding:.7rem 0;border-bottom:1px solid var(--line);color:var(--ink)}
+  .sheet .sheet-cta{margin-top:1.6rem;justify-content:center}
+  .sheet-close{position:absolute;top:1.4rem;right:1.4rem;width:46px;height:46px;border:1px solid var(--line);background:#fff;border-radius:11px;font-size:1.4rem;cursor:pointer;color:var(--ink)}
+  .sheet-brand{position:absolute;top:1.5rem;left:clamp(1.5rem,8vw,4rem)}
+
+  .foot{padding:clamp(2.5rem,6vw,5rem) clamp(1.5rem,6vw,4rem);text-align:center;background:var(--soft);border-top:1px solid var(--line)}
+  .foot .verdict{font-family:var(--sora);font-weight:800;font-size:clamp(1.4rem,1rem+2vw,2.2rem);letter-spacing:-.02em;margin-bottom:1rem}
+  .foot .verdict .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .foot p{color:var(--muted);max-width:62ch;margin:.4rem auto;font-size:.92rem;line-height:1.7}.foot p b{color:var(--coral)}
+  .foot .legal{font-size:.74rem;color:#94a3b8;margin-top:1.5rem}.foot .legal b{color:var(--blue)}
+
+  @media (max-width:880px){
+    .nav-links,.opt-meta,.seg,.trust{display:none}
+    .burger{display:flex}
+    .stageN .hero-content{padding-left:calc(76px + clamp(1.5rem,6vw,2rem))}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+  <header class="intro">
+    <div class="kicker">POLICITY · Navbar / Header · Batch 3 (K–O)</div>
+    <h1>Fünf weitere <span class="g">Blickwinkel.</span></h1>
+    <p>Segmented-Pill-Navigation, Trust-Forward-Bar mit Bewertung &amp; Siegeln, ein kräftiger Gradient-Full-Bleed-Header, eine persistente App-Shell-Icon-Rail und ein rotierender USP-Announcement-Header. Alle live — reinscrollen, hovern, Mobile testen.</p>
+    <div class="hint">Platzhalter-Daten · Sora/Inter via Bunny (EU/DSGVO)<span class="dot"></span>Wähle mit <b>„Weiter / Option X"</b></div>
+  </header>
+
+  <!-- K -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option K</span><span class="opt-name">Segmented Pill Nav</span>
+      <span class="opt-meta">Navigation als iOS-artiges Segmented-Control mit <b>gleitendem Aktiv-Indikator</b> · app-nativ, taktil.</span></div>
+    <div class="stage"><div class="sentinel" data-nav="navK"></div>
+      <nav class="navK" id="navK"><div class="navK-inner">
+        <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+        <div class="seg" id="segK">
+          <a class="active" href="#">Versicherungen</a><a href="#">So geht's</a><a href="#">Über uns</a>
+          <span class="ind"></span>
+        </div>
+        <a class="cta cta-fill" href="#">Beraten lassen <span class="arrow">→</span></a>
+        <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div></nav>
+      <div class="hero"><div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="grid-lines"></span></div>
+        <div class="hero-content"><div class="hero-eyebrow">🎚️ Klar umschalten</div>
+          <h1 class="hero-h">Ein Tippen,<br><span class="g">ein Bereich.</span></h1>
+          <p class="hero-sub">Die Segmented-Navigation macht Orientierung spielerisch — der Indikator gleitet sanft zum aktiven Bereich.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a></div></div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div></div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p>Sehr <b>app-nativ &amp; modern</b>. Das Segmented-Control kennt jeder vom Smartphone — niedrige kognitive Last.</p></div>
+      <div class="note"><h4>Animation</h4><p>Gleitender Gradient-Indikator (folgt Hover &amp; Klick), Brand-Scroll-Schatten, CTA-Lift.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Segmented-Control → Burger/Sheet auf Mobile. CTA bleibt sichtbar.</p></div>
+    </div></div>
+  </section>
+
+  <!-- L -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option L</span><span class="opt-name">Trust-Forward Bar</span>
+      <span class="opt-meta">Bewertung (4,9★), Kundenzahl &amp; Siegel <b>direkt im Header</b> — Vertrauen ab der ersten Sekunde.</span></div>
+    <div class="stage"><div class="sentinel" data-nav="navL"></div>
+      <nav class="navL" id="navL"><div class="navL-inner">
+        <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+        <ul class="nav-links"><li><a class="nav-link" href="#">Versicherungen</a></li><li><a class="nav-link" href="#">So geht's</a></li></ul>
+        <div class="trust">
+          <div class="t"><b><span class="stars">★★★★★</span> 4,9</b><span>aus 2.380 Bewertungen</span></div>
+          <span class="badge">🛡️ TÜV-geprüft</span>
+        </div>
+        <a class="cta cta-fill" href="#">Beraten lassen <span class="arrow">→</span></a>
+        <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div></nav>
+      <div class="hero"><div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="grid-lines"></span></div>
+        <div class="hero-content"><div class="hero-eyebrow">⭐ Über 50.000 Kund:innen vertrauen uns</div>
+          <h1 class="hero-h">Vertrauen,<br><span class="g">sofort sichtbar.</span></h1>
+          <p class="hero-sub">Bewertung und Siegel im Header bauen Skepsis ab, bevor sie entsteht — ideal in der Versicherungsbranche.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a><a class="cta cta-ghost" href="#">Bewertungen lesen</a></div></div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div></div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p>Maximal <b>conversion- &amp; vertrauensorientiert</b>. Social Proof &amp; Siegel sind in Finanz der stärkste Hebel.</p></div>
+      <div class="note"><h4>Animation</h4><p>Sterne können beim Load „aufpoppen", Badge mit dezentem Hover. Scroll-Schatten.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Trust-Block wandert mobil in ein schlankes Sub-Element/Sheet, Sterne bleiben sichtbar. <b>Echte Daten nötig</b> (keine Fake-Bewertungen — DSGVO/Wettbewerbsrecht).</p></div>
+    </div></div>
+  </section>
+
+  <!-- M -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option M</span><span class="opt-name">Gradient Full-Bleed Bar</span>
+      <span class="opt-meta">Kräftiger Blau-Türkis-Gradient als durchgehender Header, weiße Links, weißer CTA · <b>mutig, farbstark, markant.</b></span></div>
+    <div class="stageM stage"><div class="sentinel" data-nav="navM"></div>
+      <nav class="navM" id="navM"><div class="navM-inner">
+        <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+        <ul class="nav-links"><li><a class="nav-link" href="#">Versicherungen</a></li><li><a class="nav-link" href="#">So geht's</a></li><li><a class="nav-link" href="#">Über uns</a></li></ul>
+        <a class="cta cta-fill" href="#">Beraten lassen <span class="arrow">→</span></a>
+        <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div></nav>
+      <div class="hero"><div class="mesh"><span class="blob b1"></span><span class="blob b3"></span><span class="grid-lines"></span></div>
+        <div class="hero-content"><div class="hero-eyebrow">🎨 Unverwechselbar bunt</div>
+          <h1 class="hero-h">Farbe bekennen.<br><span class="g">Klar versichern.</span></h1>
+          <p class="hero-sub">Der Gradient-Header trägt die Marke selbstbewusst nach außen — sofort wiedererkennbar, nie generisch.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a></div></div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div></div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p><b>Mutigster, markantester</b> Auftritt. Gradient-Bar = starke Markenpräsenz, hebt sich klar von weißen Standard-Headern ab.</p></div>
+      <div class="note"><h4>Animation</h4><p>Beim Scroll dezent verdichtender Schatten; weiße Underline-Reveals. Optional sanfter Gradient-Shift.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Voller Gradient bleibt, Links → heller Burger auf Gradient. Kontrast WCAG-AA geprüft (weiß auf Blau/Türkis).</p></div>
+    </div></div>
+  </section>
+
+  <!-- N -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option N</span><span class="opt-name">App-Shell Icon-Rail</span>
+      <span class="opt-meta">Schmale, dauerhafte Icon-Leiste links mit Tooltips + minimaler Top-Bar · <b>SaaS-/Dashboard-Anmutung.</b></span></div>
+    <div class="stageN stage"><div class="sentinel" data-nav="topN"></div>
+      <div class="railN"><aside class="irail">
+        <div class="ibrand">P</div>
+        <a class="iitem active" href="#">🏠<span class="tip">Start</span></a>
+        <a class="iitem" href="#">🛡️<span class="tip">Versicherungen</span></a>
+        <a class="iitem" href="#">📊<span class="tip">So geht's</span></a>
+        <a class="iitem" href="#">💬<span class="tip">Chat</span></a>
+        <a class="iitem" href="#">👤<span class="tip">Über uns</span></a>
+        <div class="ispacer"></div>
+        <a class="ifab" href="#">＋</a>
+      </aside></div>
+      <nav class="topN" id="topN"><div class="topN-inner">
+        <span class="crumb">Start</span>
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <a class="cta cta-fill" href="#">Beraten lassen <span class="arrow">→</span></a>
+          <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+        </div>
+      </div></nav>
+      <div class="hero"><div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="grid-lines"></span></div>
+        <div class="hero-content"><div class="hero-eyebrow">🧭 Wie dein Versicherungs-Dashboard</div>
+          <h1 class="hero-h">Alles im<br><span class="g">Griff.</span></h1>
+          <p class="hero-sub">Die persistente Icon-Rail signalisiert „digitales Tool, das mitdenkt" — vertraut aus modernen Apps &amp; SaaS.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a></div></div>
+      </div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p><b>SaaS-/Dashboard-Gefühl</b> — vermittelt „Plattform" statt „Broschüre". Differenziert stark von klassischen Makler-Seiten.</p></div>
+      <div class="note"><h4>Animation</h4><p>Icon-Hover mit Tooltip-Slide, aktiver Zustand, Coral-FAB. Top-Bar mit Scroll-Schatten &amp; Breadcrumb.</p></div>
+      <div class="note"><h4>Responsive</h4><p>Rail bleibt schmal (76px), Content-Padding passt sich an; Top-Links → Sheet. Touch-Ziele ≥44px.</p></div>
+    </div></div>
+  </section>
+
+  <!-- O -->
+  <section>
+    <div class="opt-label"><span class="opt-tag">Option O</span><span class="opt-name">USP-Announcement Rotator</span>
+      <span class="opt-meta">Dünne, <b>rotierende Vorteils-Leiste</b> über der Navigation (in 2 Min. abgesichert · jederzeit kündbar …) · marketingstark.</span></div>
+    <div class="stage"><div class="sentinel" data-nav="navO"></div>
+      <nav class="navO" id="navO">
+        <div class="announce"><div class="announce-inner" id="annO">
+          <span class="ann-msg show">✓ In <b>2 Minuten</b> online abgesichert</span>
+          <span class="ann-msg">✓ <b>Jederzeit</b> monatlich kündbar</span>
+          <span class="ann-msg">✓ <b>Kostenlose</b> persönliche Beratung</span>
+          <span class="ann-msg">✓ <b>Unabhängig</b> &amp; transparent vergütet</span>
+        </div></div>
+        <div class="navO-bar"><div class="navO-inner">
+          <a class="brand" href="#"><span class="mark">P</span>POLICITY</a>
+          <ul class="nav-links"><li><a class="nav-link" href="#">Versicherungen</a></li><li><a class="nav-link" href="#">So geht's</a></li><li><a class="nav-link" href="#">Über uns</a></li></ul>
+          <a class="cta cta-fill" href="#">Beraten lassen <span class="arrow">→</span></a>
+          <button class="burger" data-sheet="sheet" aria-label="Menü"><span></span><span></span><span></span></button>
+        </div></div>
+      </nav>
+      <div class="hero"><div class="mesh"><span class="blob b1"></span><span class="blob b2"></span><span class="grid-lines"></span></div>
+        <div class="hero-content"><div class="hero-eyebrow">📣 Vorteile ganz oben</div>
+          <h1 class="hero-h">Gründe, die<br><span class="g">vorneweg gehen.</span></h1>
+          <p class="hero-sub">Die rotierende USP-Leiste platziert deine stärksten Argumente an der prominentesten Stelle — noch vor dem Scroll.</p>
+          <div class="hero-cta-row"><a class="cta cta-fill" href="#">Jetzt beraten lassen <span class="arrow">→</span></a></div></div>
+        <div class="scroll-cue"><span class="arr">↓</span>Scrollen</div></div>
+    </div>
+    <div class="notes"><div class="notes-grid">
+      <div class="note"><h4>Vibe</h4><p><b>Marketing- &amp; conversionstark.</b> Vorteils-Leiste oben adressiert Einwände sofort; gut für Kampagnen-Traffic.</p></div>
+      <div class="note"><h4>Animation</h4><p>Botschaften faden alle ~3,5 s sanft durch (auto-rotierend). Respektiert <b>prefers-reduced-motion</b> (kein Wechsel).</p></div>
+      <div class="note"><h4>Responsive</h4><p>Leiste bleibt einzeilig &amp; lesbar; Nav darunter → Burger/Sheet. „beste/günstigste" nur mit Beleg (IDD/Wettbewerbsrecht).</p></div>
+    </div></div>
+  </section>
+
+  <div class="sheet" id="sheet">
+    <a class="brand sheet-brand" href="#"><span class="mark">P</span>POLICITY</a>
+    <button class="sheet-close" data-close aria-label="Schließen">×</button>
+    <a href="#">Versicherungen</a><a href="#">So geht's</a><a href="#">Über uns</a><a href="#">Chat</a>
+    <a class="cta cta-fill sheet-cta" href="#">Jetzt beraten lassen <span class="arrow">→</span></a>
+  </div>
+
+  <footer class="foot">
+    <div class="verdict">15 Optionen, eine <span class="g">Richtung.</span></div>
+    <p>Aus Batch 3: <b>Option L (Trust-Forward)</b> für maximale Conversion, <b>Option M (Gradient)</b> für mutige Markenpräsenz, <b>Option N (Icon-Rail)</b> fürs SaaS-Gefühl, <b>Option K (Segmented)</b> &amp; <b>O (USP-Rotator)</b> als smarte App-/Marketing-Patterns.</p>
+    <p class="legal">Footer in Produktion: Impressum · Datenschutz · <b>Erstinformation/Statusangaben (§ 34d GewO)</b> · Transparenz Marktausschnitt &amp; Vergütung (IDD) · Cookie-Einstellungen.</p>
+  </footer>
+
+<script>
+  // scroll-state
+  document.querySelectorAll('.sentinel').forEach(function(s){var id=s.getAttribute('data-nav');if(!id)return;var nav=document.getElementById(id);if(!nav)return;new IntersectionObserver(function(e){e.forEach(function(x){nav.classList.toggle('solid',!x.isIntersecting);});},{threshold:0,rootMargin:'-1px 0px 0px 0px'}).observe(s);});
+  // hero reveal
+  document.querySelectorAll('.hero').forEach(function(h){new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.25}).observe(h);});
+  // K segmented indicator
+  (function(){var seg=document.getElementById('segK');if(!seg)return;var ind=seg.querySelector('.ind');var items=[].slice.call(seg.querySelectorAll('a'));
+    function move(el){ind.style.left=el.offsetLeft+'px';ind.style.width=el.offsetWidth+'px';}
+    function set(el){items.forEach(a=>a.classList.remove('active'));el.classList.add('active');move(el);}
+    items.forEach(function(a){a.addEventListener('mouseenter',()=>move(a));a.addEventListener('mouseleave',()=>move(seg.querySelector('a.active')));a.addEventListener('click',function(ev){ev.preventDefault();set(a);});});
+    requestAnimationFrame(()=>move(seg.querySelector('a.active')));
+    window.addEventListener('resize',()=>move(seg.querySelector('a.active')));
+  })();
+  // N icon rail active
+  document.querySelectorAll('.irail .iitem').forEach(function(it){it.addEventListener('click',function(e){e.preventDefault();document.querySelectorAll('.irail .iitem').forEach(x=>x.classList.remove('active'));it.classList.add('active');var c=document.querySelector('.topN .crumb');if(c)c.textContent=it.querySelector('.tip').textContent;});});
+  // O announcement rotator (respects reduced motion)
+  (function(){var box=document.getElementById('annO');if(!box)return;var msgs=[].slice.call(box.querySelectorAll('.ann-msg'));var i=0;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    setInterval(function(){msgs[i].classList.remove('show');i=(i+1)%msgs.length;msgs[i].classList.add('show');},3500);
+  })();
+  // sheet
+  function closeSheets(){document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('open'));document.querySelectorAll('.burger').forEach(b=>b.classList.remove('open'));}
+  document.querySelectorAll('.burger').forEach(function(b){b.addEventListener('click',function(){var el=document.getElementById(b.getAttribute('data-sheet'));if(el.classList.contains('open')){closeSheets();}else{el.classList.add('open');b.classList.add('open');}});});
+  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeSheets));
+  document.querySelectorAll('.sheet a').forEach(a=>a.addEventListener('click',closeSheets));
+</script>
+</body>
+</html>

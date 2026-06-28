@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>POLICITY — Sektion 4 „So funktioniert's" · Batch 2 (F–J)</title>
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=sora:400,500,600,700,800|inter:400,500,600" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1d6ff2;--blue-deep:#1657d6;--turq:#06b6d4;--turq-deep:#0e9bb5;
+    --coral:#ff6b5e;--coral-deep:#f5564a;--ink:#0f172a;--ink2:#0b1220;--slate:#475569;--muted:#64748b;
+    --line:#e6edf5;--paper:#fff;--soft:#f4f8fc;
+    --grad:linear-gradient(135deg,var(--blue),var(--turq));--grad-coral:linear-gradient(135deg,#ff8a5e,var(--coral));
+    --sora:'Sora',system-ui,sans-serif;--inter:'Inter',system-ui,sans-serif;
+    --ease:cubic-bezier(.22,1,.36,1);--shadow:0 18px 50px -24px rgba(15,73,153,.4);--shadow-sm:0 8px 24px -14px rgba(15,73,153,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{font-family:var(--inter);background:var(--soft);color:var(--ink);overflow-x:hidden}
+  img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
+  ::selection{background:var(--blue);color:#fff}
+
+  .intro{padding:clamp(2.5rem,6vw,5rem) clamp(1.25rem,5vw,4rem) clamp(1rem,2vw,2rem);max-width:1100px;margin-inline:auto;text-align:center}
+  .kicker{font-family:var(--sora);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--blue);font-weight:600}
+  .intro h1{font-family:var(--sora);font-weight:800;font-size:clamp(2rem,1.2rem+4vw,3.6rem);line-height:1.05;margin:.7rem 0 .8rem;letter-spacing:-.02em}
+  .intro h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .intro p{color:var(--muted);max-width:62ch;margin-inline:auto;font-size:clamp(.95rem,.9rem+.3vw,1.05rem);line-height:1.7}
+  .intro .hint{margin-top:1.1rem;font-size:.82rem;color:#94a3b8}.intro .hint b{color:var(--coral)}
+
+  .opt-label{position:sticky;top:0;z-index:60;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;padding:.85rem clamp(1.25rem,5vw,4rem);background:#06080f;color:#fff}
+  .opt-tag{font-family:var(--sora);font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--grad);padding:.34rem .7rem;border-radius:6px}
+  .opt-name{font-family:var(--sora);font-size:1.2rem;font-weight:600}
+  .opt-meta{margin-left:auto;font-size:.74rem;color:#9fb2cc;max-width:46ch}.opt-meta b{color:#7fd6e6;font-weight:600}
+
+  .sec{padding:clamp(3.4rem,7vw,6.5rem) clamp(1.5rem,6vw,4rem)}
+  .wrap{max-width:1180px;margin-inline:auto}
+  .sec-head{max-width:62ch;margin-bottom:clamp(2.2rem,4vw,3.4rem)}
+  .sec-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sora);font-size:.74rem;font-weight:600;letter-spacing:.04em;color:var(--blue-deep);text-transform:uppercase}
+  .sec-h{font-family:var(--sora);font-weight:800;font-size:clamp(1.9rem,1.2rem+2.8vw,3.1rem);line-height:1.08;letter-spacing:-.025em;margin:.5rem 0 .7rem}
+  .sec-h .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sec-sub{color:var(--slate);font-size:clamp(1rem,.95rem+.2vw,1.14rem);line-height:1.6}
+
+  .rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  .stagger>*{opacity:0;transform:translateY(24px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+  .stagger.in>*{opacity:1;transform:none}
+  .stagger.in>*:nth-child(2){transition-delay:.12s}.stagger.in>*:nth-child(3){transition-delay:.24s}
+  .cta-fill{display:inline-flex;align-items:center;gap:.5rem;background:var(--grad-coral);color:#fff;padding:.9rem 1.6rem;border-radius:12px;font-family:var(--sora);font-weight:600;font-size:.94rem;box-shadow:var(--shadow-sm);transition:transform .3s var(--ease)}
+  .cta-fill:hover{transform:translateY(-2px)}
+  .pill{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--sora);font-size:.72rem;font-weight:600;color:var(--blue-deep);background:#eaf2ff;border:1px solid #d4e4ff;padding:.4rem .8rem;border-radius:999px}
+
+  /* ===== F — Dark premium glass ===== */
+  .darkF{background:radial-gradient(120% 120% at 80% 0%,#16233f 0%,#0b1220 45%,#06080f 100%);color:#fff;border-radius:0}
+  .darkF .sec-eyebrow{color:#7fd6e6}
+  .darkF .sec-h{color:#fff}.darkF .sec-sub{color:#aeb9cc}
+  .glassrow{display:grid;gap:1.4rem;grid-template-columns:1fr;position:relative}
+  @media(min-width:840px){.glassrow{grid-template-columns:repeat(3,1fr)}
+    .glassrow::before{content:"";position:absolute;top:38px;left:14%;right:14%;height:2px;background:linear-gradient(90deg,transparent,#1d6ff2,#06b6d4,transparent);box-shadow:0 0 18px 1px rgba(29,111,242,.6);z-index:0}}
+  .gcard{position:relative;z-index:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:2rem 1.5rem 1.6rem;backdrop-filter:blur(10px);transition:transform .4s var(--ease),border-color .4s,background .4s}
+  .gcard:hover{transform:translateY(-6px);border-color:rgba(127,214,230,.5);background:rgba(255,255,255,.07)}
+  .gbadge{width:74px;height:74px;border-radius:20px;display:grid;place-items:center;font-family:var(--sora);font-weight:800;font-size:1.8rem;color:#fff;background:var(--grad);box-shadow:0 14px 34px -10px rgba(29,111,242,.8),inset 0 1px 0 rgba(255,255,255,.4);margin-bottom:1.2rem}
+  .gcard h3{font-family:var(--sora);font-size:1.25rem;font-weight:600;margin-bottom:.5rem}
+  .gcard p{color:#aeb9cc;font-size:.92rem;line-height:1.6}
+  .gcard .tag{margin-top:1rem;font-size:.74rem;color:#7fd6e6;font-family:var(--sora);font-weight:600}
+
+  /* ===== G — Phone mockup flow ===== */
+  .gflow{display:grid;gap:2.4rem;align-items:center}
+  @media(min-width:900px){.gflow{grid-template-columns:.9fr 1.1fr;gap:3.5rem}}
+  .phone{justify-self:center;width:300px;max-width:80vw;aspect-ratio:300/610;background:#0b1220;border-radius:42px;padding:13px;box-shadow:0 40px 80px -30px rgba(15,73,153,.6),inset 0 0 0 2px rgba(255,255,255,.06);position:relative}
+  .phone::before{content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#0b1220;border-radius:0 0 16px 16px;z-index:3}
+  .screen{height:100%;border-radius:30px;overflow:hidden;background:var(--soft);position:relative}
+  .scr{position:absolute;inset:0;display:flex;flex-direction:column;padding:2.4rem 1.2rem 1.2rem;opacity:0;transform:translateY(12px);transition:opacity .45s var(--ease),transform .45s var(--ease);pointer-events:none}
+  .scr.on{opacity:1;transform:none;pointer-events:auto}
+  .scr .stop{font-family:var(--sora);font-weight:700;font-size:.9rem;color:var(--ink);margin-bottom:.2rem}
+  .scr .ssub{font-size:.72rem;color:var(--muted);margin-bottom:1rem}
+  .scr .field{height:42px;border-radius:12px;background:#fff;border:1px solid var(--line);margin-bottom:.6rem;display:flex;align-items:center;padding:0 .8rem;font-size:.8rem;color:var(--muted)}
+  .scr .opt{display:flex;align-items:center;gap:.6rem;background:#fff;border:1px solid var(--line);border-radius:12px;padding:.7rem;margin-bottom:.55rem;font-size:.78rem}
+  .scr .opt .b{width:34px;height:34px;border-radius:9px;background:#eaf2ff;display:grid;place-items:center;font-size:1rem}
+  .scr .opt.best{border-color:var(--turq);box-shadow:0 0 0 2px rgba(6,182,212,.18)}
+  .scr .tick{margin-left:auto;color:var(--turq-deep);font-weight:700}
+  .scr .done{margin:auto;text-align:center}
+  .scr .done .circle{width:84px;height:84px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-size:2.4rem;margin:0 auto 1rem;color:#fff;box-shadow:0 16px 34px -10px rgba(6,182,212,.7)}
+  .scr .appbtn{margin-top:auto;background:var(--grad-coral);color:#fff;border-radius:12px;text-align:center;padding:.7rem;font-family:var(--sora);font-weight:600;font-size:.82rem}
+  .gflow-steps{display:flex;flex-direction:column;gap:.8rem}
+  .gline{display:flex;gap:1rem;padding:1.1rem 1.2rem;border-radius:16px;border:1px solid var(--line);background:#fff;cursor:pointer;transition:.3s var(--ease)}
+  .gline:hover{border-color:#cfe0f5}
+  .gline.active{border-color:transparent;box-shadow:var(--shadow);background:#fff}
+  .gline.active .gnum{background:var(--grad);color:#fff}
+  .gnum{width:38px;height:38px;flex:none;border-radius:11px;background:var(--soft);color:var(--slate);font-family:var(--sora);font-weight:700;display:grid;place-items:center;transition:.3s}
+  .gline h3{font-family:var(--sora);font-size:1.05rem;font-weight:600;margin-bottom:.15rem}
+  .gline p{color:var(--muted);font-size:.85rem;line-height:1.5}
+
+  /* ===== H — Editorial image rows ===== */
+  .erow{display:grid;gap:1.6rem;align-items:center;margin-bottom:clamp(2rem,4vw,3.4rem)}
+  .erow:last-child{margin-bottom:0}
+  @media(min-width:840px){.erow{grid-template-columns:1fr 1fr;gap:3rem}.erow.flip .etext{order:2}.erow.flip .emedia{order:1}}
+  .emedia{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow)}
+  .emedia img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+  .erow:hover .emedia img{transform:scale(1.05)}
+  .emedia .watermark{position:absolute;top:.6rem;left:1rem;font-family:var(--sora);font-weight:800;font-size:5rem;color:rgba(255,255,255,.85);text-shadow:0 4px 24px rgba(0,0,0,.3);line-height:1}
+  .etext .step-pill{font-family:var(--sora);font-weight:700;font-size:.74rem;letter-spacing:.1em;color:var(--blue-deep)}
+  .etext h3{font-family:var(--sora);font-size:clamp(1.4rem,1.1rem+1.2vw,2rem);font-weight:700;margin:.4rem 0 .6rem;letter-spacing:-.02em}
+  .etext p{color:var(--slate);font-size:1rem;line-height:1.65;max-width:46ch}
+
+  /* ===== I — Journey map rail ===== */
+  .jmap{position:relative;padding:2rem 0}
+  .jtrack{position:relative;height:4px;background:var(--line);border-radius:4px;margin:3.5rem 0 0}
+  .jfill{position:absolute;top:0;left:0;height:100%;border-radius:4px;background:var(--grad);width:0;transition:width .9s var(--ease)}
+  .jstations{display:flex;justify-content:space-between;position:relative;margin-top:-3.5rem}
+  .jstation{flex:1;text-align:center;cursor:pointer}
+  .jdot{width:54px;height:54px;border-radius:50%;background:#fff;border:2px solid var(--line);display:grid;place-items:center;margin:0 auto 1rem;font-family:var(--sora);font-weight:700;font-size:1.1rem;color:var(--slate);transition:.4s var(--ease);position:relative;z-index:2}
+  .jstation.active .jdot,.jstation:hover .jdot{border-color:transparent;background:var(--grad);color:#fff;transform:scale(1.08);box-shadow:0 12px 26px -8px rgba(29,111,242,.7)}
+  .jstation h3{font-family:var(--sora);font-size:1.02rem;font-weight:600;margin-bottom:.3rem}
+  .jstation p{color:var(--muted);font-size:.82rem;line-height:1.5;max-width:24ch;margin:0 auto;padding:0 .4rem}
+  @media(max-width:760px){.jtrack{display:none}.jstations{flex-direction:column;gap:1.4rem;margin-top:0}.jstation{display:flex;gap:1rem;text-align:left}.jdot{margin:0}.jstation p{margin:0;max-width:none}}
+
+  /* ===== J — 3D tilt cards ===== */
+  .tilt-grid{display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));perspective:1000px}
+  .tcard{position:relative;border-radius:22px;padding:2rem 1.6rem;color:#fff;overflow:hidden;transform-style:preserve-3d;transition:transform .2s var(--ease);will-change:transform;min-height:240px;display:flex;flex-direction:column;justify-content:flex-end}
+  .tcard.c1{background:linear-gradient(150deg,#1d6ff2,#0e9bb5)}
+  .tcard.c2{background:linear-gradient(150deg,#0e9bb5,#06b6d4)}
+  .tcard.c3{background:linear-gradient(150deg,#2b5fd0,#1d6ff2)}
+  .tcard .sheen{position:absolute;inset:0;background:radial-gradient(600px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.25),transparent 40%);opacity:0;transition:opacity .3s}
+  .tcard:hover .sheen{opacity:1}
+  .tcard .tnum{position:absolute;top:1.2rem;right:1.5rem;font-family:var(--sora);font-weight:800;font-size:3.4rem;opacity:.25;transform:translateZ(40px)}
+  .tcard .tic{font-size:2rem;transform:translateZ(60px)}
+  .tcard h3{font-family:var(--sora);font-size:1.3rem;font-weight:700;margin:.8rem 0 .4rem;transform:translateZ(40px)}
+  .tcard p{color:rgba(255,255,255,.9);font-size:.92rem;line-height:1.55;transform:translateZ(20px)}
+
+  .notes{background:#06080f;color:#cdd7e6;padding:clamp(1.4rem,3vw,2rem) clamp(1.5rem,6vw,4rem)}
+  .notes-grid{max-width:1180px;margin-inline:auto;display:grid;gap:1.3rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+  .note h4{font-family:var(--sora);font-weight:700;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:#7fd6e6;margin-bottom:.4rem}
+  .note p{font-size:.85rem;line-height:1.55}.note p b{color:#fff;font-weight:600}
+
+  .foot{padding:clamp(2.5rem,6vw,4.5rem) clamp(1.5rem,6vw,4rem);text-align:center;background:var(--soft)}
+  .foot .verdict{font-family:var(--sora);font-weight:800;font-size:clamp(1.4rem,1rem+2vw,2.2rem);letter-spacing:-.02em;margin-bottom:1rem}
+  .foot .verdict .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .foot p{color:var(--muted);max-width:64ch;margin:.4rem auto;font-size:.92rem;line-height:1.7}.foot p b{color:var(--coral)}
+
+  @media (max-width:760px){.opt-meta{display:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}.rv,.stagger>*{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+  <header class="intro">
+    <div class="kicker">POLICITY · Sektion 4 · So funktioniert's · Batch 2</div>
+    <h1>Frische Runde — <span class="g">mehr Wumms.</span></h1>
+    <p>Fünf hochwertigere Richtungen für den 3-Schritt-Ablauf: dunkel-cinematic mit Glow, ein interaktives Phone-Mockup, bild-getriebene Editorial-Rows, eine animierte Journey-Map und 3D-Tilt-Karten. Alles live — scrollen, hovern, klicken.</p>
+    <div class="hint">Platzhalter-Daten · echte Unsplash-Bilder · Bunny-Fonts (EU/DSGVO)<span style="margin:0 .5rem">·</span>Wähle mit <b>„Weiter / Option X"</b></div>
+  </header>
+
+  <!-- F -->
+  <div class="opt-label"><span class="opt-tag">Option F</span><span class="opt-name">Dark Premium · Glow-Glass</span>
+    <span class="opt-meta">Dunkle Sektion, Glas-Karten, leuchtende Gradient-Badges &amp; Connector · <b>edel, app-ig, abhebend.</b></span></div>
+  <section class="sec darkF"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">◆ In 3 Schritten</div>
+      <h2 class="sec-h">In Minuten zum <span class="g">passenden Schutz.</span></h2>
+      <p class="sec-sub">Kein Papierkram, kein Fachchinesisch — Absicherung so einfach wie deine Lieblings-App.</p></div>
+    <div class="glassrow stagger">
+      <div class="gcard"><div class="gbadge">1</div><h3>Bedarf erfassen</h3><p>Sag uns in 3 Minuten online, was dir wichtig ist — unverbindlich.</p><div class="tag">⏱ ca. 3 Minuten</div></div>
+      <div class="gcard"><div class="gbadge">2</div><h3>Unabhängig vergleichen</h3><p>Wir prüfen den Marktausschnitt und erklären jede Option in Klartext.</p><div class="tag">🔍 transparent</div></div>
+      <div class="gcard"><div class="gbadge">3</div><h3>Digital abschließen</h3><p>Beratung + papierloser Abschluss — wann immer es dir passt.</p><div class="tag">✅ papierlos</div></div>
+    </div>
+    <div style="margin-top:2.4rem"><a class="cta-fill">Jetzt starten →</a></div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p><b>Hochwertig &amp; tech.</b> Der dunkle Block setzt sich klar von der hellen Seite ab — wie ein Premium-Moment.</p></div>
+    <div class="note"><h4>Animation</h4><p>Glühender Connector, Glas-Karten heben &amp; leuchten on Hover, Stagger-Reveal.</p></div>
+    <div class="note"><h4>Responsive</h4><p>3→1, Glow-Linie nur ab Tablet. Kontrast hell-auf-dunkel WCAG-geprüft.</p></div>
+  </div></div>
+
+  <!-- G -->
+  <div class="opt-label"><span class="opt-tag">Option G</span><span class="opt-name">Phone-Mockup · App-Flow</span>
+    <span class="opt-meta">Echtes Handy-Mockup, dessen Screen je Schritt wechselt (klickbar) · <b>konkret, produktig, „so fühlt es sich an".</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">📱 Schritt für Schritt</div>
+      <h2 class="sec-h">Sieh, wie <span class="g">einfach es ist.</span></h2>
+      <p class="sec-sub">Tippe rechts durch die Schritte — der Bildschirm zeigt, was dich erwartet.</p></div>
+    <div class="gflow rv">
+      <div class="phone"><div class="screen">
+        <div class="scr on" data-s="1"><div class="stop">Was möchtest du absichern?</div><div class="ssub">Schritt 1 von 3 · unverbindlich</div>
+          <div class="field">🚗 Auto &amp; Motorrad</div><div class="field">🏠 Zuhause &amp; Hausrat</div><div class="field">🛡️ Einkommen (BU)</div>
+          <div class="appbtn">Weiter</div></div>
+        <div class="scr" data-s="2"><div class="stop">Deine besten Optionen</div><div class="ssub">Schritt 2 von 3 · Marktausschnitt geprüft</div>
+          <div class="opt best"><span class="b">⭐</span><span>Tarif Komfort<br><span style="color:var(--muted)">Top-Leistung</span></span><span class="tick">✓</span></div>
+          <div class="opt"><span class="b">💧</span><span>Tarif Basis<br><span style="color:var(--muted)">günstig</span></span></div>
+          <div class="opt"><span class="b">🛡️</span><span>Tarif Premium<br><span style="color:var(--muted)">Rundum</span></span></div>
+          <div class="appbtn">Beraten lassen</div></div>
+        <div class="scr" data-s="3"><div class="done"><div class="circle">✓</div><div class="stop">Geschafft!</div><div class="ssub">Papierlos abgeschlossen · Bestätigung per Mail</div></div>
+          <div class="appbtn">Police ansehen</div></div>
+      </div></div>
+      <div class="gflow-steps">
+        <div class="gline active" data-go="1"><span class="gnum">1</span><div><h3>Bedarf erfassen</h3><p>Sag uns in 3 Minuten, was dir wichtig ist — unverbindlich.</p></div></div>
+        <div class="gline" data-go="2"><span class="gnum">2</span><div><h3>Unabhängig vergleichen</h3><p>Wir prüfen den Marktausschnitt und erklären jede Option in Klartext.</p></div></div>
+        <div class="gline" data-go="3"><span class="gnum">3</span><div><h3>Digital abschließen</h3><p>Persönliche Beratung &amp; papierloser Abschluss von zuhause.</p></div></div>
+      </div>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p><b>Am konkretesten</b> — zeigt das echte Produkt. Perfekt zur app-artigen POLICITY-DNA; baut Vertrauen durch Vorschau.</p></div>
+    <div class="note"><h4>Animation</h4><p>Screen-Wechsel mit Fade/Slide; aktiver Schritt hebt sich. Auto-Advance optional.</p></div>
+    <div class="note"><h4>Responsive</h4><p>Zwei Spalten → Phone oben, Schritte darunter. Touch ≥44px.</p></div>
+  </div></div>
+
+  <!-- H -->
+  <div class="opt-label"><span class="opt-tag">Option H</span><span class="opt-name">Editorial · Bild-Rows</span>
+    <span class="opt-meta">Jeder Schritt eine große Bild+Text-Reihe, alternierend, mit XXL-Ziffer · <b>magazinig, emotional, hochwertig.</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">Dein Weg mit uns</div>
+      <h2 class="sec-h">Drei Schritte, <span class="g">ein gutes Gefühl.</span></h2></div>
+    <div>
+      <div class="erow rv"><div class="emedia"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1200&auto=format&fit=crop" alt="Person erfasst Bedarf am Laptop"><span class="watermark">01</span></div>
+        <div class="etext"><div class="step-pill">SCHRITT 01</div><h3>Bedarf erfassen</h3><p>Erzähl uns in 3 Minuten online, was du absichern willst — unverbindlich und in deiner Sprache. Ein paar Angaben genügen.</p></div></div>
+      <div class="erow flip rv"><div class="emedia"><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop" alt="Vergleich von Optionen"><span class="watermark">02</span></div>
+        <div class="etext"><div class="step-pill">SCHRITT 02</div><h3>Unabhängig vergleichen</h3><p>Wir prüfen den Marktausschnitt und übersetzen das Kleingedruckte in Klartext — transparent, welche Anbieter wir geprüft haben.</p></div></div>
+      <div class="erow rv"><div class="emedia"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1200&auto=format&fit=crop" alt="Zufriedener Abschluss"><span class="watermark">03</span></div>
+        <div class="etext"><div class="step-pill">SCHRITT 03</div><h3>Digital abschließen</h3><p>Persönliche Beratung und papierloser Abschluss — sicher, schnell und bequem von zuhause. Auf Wunsch begleiten wir dich auch danach.</p></div></div>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p><b>Emotional &amp; premium.</b> Bilder erzeugen Nähe/Vertrauen — stark, wenn echte Fotos vom Berater/Team verfügbar sind.</p></div>
+    <div class="note"><h4>Animation</h4><p>Reihen faden ein, Bild zoomt sanft on Hover, XXL-Ziffer als Anker.</p></div>
+    <div class="note"><h4>Responsive</h4><p>Alternierend → gestapelt (Bild über Text). <code>aspect-ratio</code> verhindert Layout-Shift.</p></div>
+  </div></div>
+
+  <!-- I -->
+  <div class="opt-label"><span class="opt-tag">Option I</span><span class="opt-name">Journey-Map · animierte Bahn</span>
+    <span class="opt-meta">Horizontale Fortschrittsbahn mit Stationen, Füllung läuft beim Scroll/Klick · <b>spielerisch, „Reise", klar.</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv" style="text-align:center;margin-inline:auto"><div class="sec-eyebrow">Deine Reise</div>
+      <h2 class="sec-h">Von der Idee zur <span class="g">Police.</span></h2></div>
+    <div class="jmap rv" id="jmap">
+      <div class="jstations">
+        <div class="jstation active" data-i="1"><div class="jdot">1</div><h3>Bedarf erfassen</h3><p>3-Minuten-Check, unverbindlich.</p></div>
+        <div class="jstation" data-i="2"><div class="jdot">2</div><h3>Vergleichen</h3><p>Marktausschnitt transparent geprüft.</p></div>
+        <div class="jstation" data-i="3"><div class="jdot">3</div><h3>Abschließen</h3><p>Beratung &amp; papierloser Abschluss.</p></div>
+      </div>
+      <div class="jtrack"><div class="jfill" id="jfill"></div></div>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p><b>Verspielt &amp; klar.</b> Die „Reise"-Metapher passt zum freundlichen POLICITY-Ton.</p></div>
+    <div class="note"><h4>Animation</h4><p>Füllbalken läuft beim Reinscrollen bis zur aktiven Station; Stationen klickbar.</p></div>
+    <div class="note"><h4>Responsive</h4><p>Horizontale Bahn → vertikale Liste mit Dots auf Mobile. Touch-freundlich.</p></div>
+  </div></div>
+
+  <!-- J -->
+  <div class="opt-label"><span class="opt-tag">Option J</span><span class="opt-name">3D-Tilt-Karten</span>
+    <span class="opt-meta">Gradient-Karten mit pointer-gesteuertem 3D-Tilt &amp; Lichtreflex · <b>taktil, modern, „wow".</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">Einfach in 3 Schritten</div>
+      <h2 class="sec-h">Beweg die Maus — <span class="g">spür den Unterschied.</span></h2>
+      <p class="sec-sub">Karten, die auf deinen Cursor reagieren. Premium-Haptik ohne Spielerei.</p></div>
+    <div class="tilt-grid stagger" id="tiltgrid">
+      <div class="tcard c1"><div class="sheen"></div><span class="tnum">01</span><span class="tic">📝</span><h3>Bedarf erfassen</h3><p>3-Minuten-Check online — unverbindlich.</p></div>
+      <div class="tcard c2"><div class="sheen"></div><span class="tnum">02</span><span class="tic">🔎</span><h3>Unabhängig vergleichen</h3><p>Marktausschnitt geprüft, Klartext erklärt.</p></div>
+      <div class="tcard c3"><div class="sheen"></div><span class="tnum">03</span><span class="tic">✅</span><h3>Digital abschließen</h3><p>Beratung &amp; papierloser Abschluss.</p></div>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p><b>Taktil &amp; modern.</b> Der 3D-Effekt wirkt hochwertig &amp; verspielt — bleibt durch klare Gradients seriös.</p></div>
+    <div class="note"><h4>Animation</h4><p>Pointer-gesteuerter Tilt + Lichtreflex (parallax Tiefe via <code>translateZ</code>). Auf Touch deaktiviert.</p></div>
+    <div class="note"><h4>Responsive</h4><p><code>auto-fit</code> 3→1; Tilt nur mit Maus (reduced-motion respektiert).</p></div>
+  </div></div>
+
+  <footer class="foot">
+    <div class="verdict">Jetzt <span class="g">besser?</span></div>
+    <p>Mein Favorit für POLICITY: <b>Option G (Phone-Mockup)</b> — am konkretesten &amp; perfekt zur App-DNA. <b>Option F (Dark Glow)</b> für den Premium-Kontrast, <b>Option H (Editorial)</b> wenn echte Fotos kommen. <b>I</b> verspielt, <b>J</b> für den Haptik-Wow.</p>
+    <p style="font-size:.74rem;color:#94a3b8;margin-top:1.4rem">In Produktion: <b>HowTo-Schema</b>, answer-first Texte, Bilder als next/image (WebP/AVIF).</p>
+  </footer>
+
+<script>
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.16});
+  document.querySelectorAll('.rv,.stagger').forEach(function(el){io.observe(el);});
+
+  // G phone flow
+  (function(){var lines=[].slice.call(document.querySelectorAll('.gline'));function go(n){
+    lines.forEach(l=>l.classList.toggle('active',l.dataset.go===n));
+    document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.dataset.s===n));}
+    lines.forEach(l=>l.addEventListener('click',()=>go(l.dataset.go)));})();
+
+  // I journey
+  (function(){var map=document.getElementById('jmap'),fill=document.getElementById('jfill');if(!map)return;
+    var sts=[].slice.call(map.querySelectorAll('.jstation'));function set(i){sts.forEach((s,k)=>s.classList.toggle('active',k<=i));fill.style.width=(i/(sts.length-1)*100)+'%';}
+    sts.forEach((s,k)=>s.addEventListener('click',()=>set(k)));
+    new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){set(sts.length-1);}});},{threshold:.4}).observe(map);
+    set(0);})();
+
+  // J tilt
+  (function(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;if(window.matchMedia('(pointer: coarse)').matches)return;
+    document.querySelectorAll('#tiltgrid .tcard').forEach(function(c){
+      c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();var px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
+        c.style.transform='rotateY('+((px-.5)*12)+'deg) rotateX('+((.5-py)*12)+'deg) translateY(-4px)';c.style.setProperty('--mx',px*100+'%');c.style.setProperty('--my',py*100+'%');});
+      c.addEventListener('pointerleave',function(){c.style.transform='';});});})();
+</script>
+</body>
+</html>
