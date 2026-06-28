@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>POLICITY — Sektion 4 „So funktioniert's" · 5 Optionen</title>
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=sora:400,500,600,700,800|inter:400,500,600" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1d6ff2;--blue-deep:#1657d6;--turq:#06b6d4;--turq-deep:#0e9bb5;
+    --coral:#ff6b5e;--coral-deep:#f5564a;--ink:#0f172a;--slate:#475569;--muted:#64748b;
+    --line:#e6edf5;--paper:#fff;--soft:#f4f8fc;
+    --grad:linear-gradient(135deg,var(--blue),var(--turq));--grad-coral:linear-gradient(135deg,#ff8a5e,var(--coral));
+    --sora:'Sora',system-ui,sans-serif;--inter:'Inter',system-ui,sans-serif;
+    --ease:cubic-bezier(.22,1,.36,1);--shadow:0 18px 50px -24px rgba(15,73,153,.4);--shadow-sm:0 8px 24px -14px rgba(15,73,153,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{font-family:var(--inter);background:var(--soft);color:var(--ink);overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--blue);color:#fff}
+
+  .intro{padding:clamp(2.5rem,6vw,5rem) clamp(1.25rem,5vw,4rem) clamp(1rem,2vw,2rem);max-width:1100px;margin-inline:auto;text-align:center}
+  .kicker{font-family:var(--sora);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--blue);font-weight:600}
+  .intro h1{font-family:var(--sora);font-weight:800;font-size:clamp(2rem,1.2rem+4vw,3.6rem);line-height:1.05;margin:.7rem 0 .8rem;letter-spacing:-.02em}
+  .intro h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .intro p{color:var(--muted);max-width:60ch;margin-inline:auto;font-size:clamp(.95rem,.9rem+.3vw,1.05rem);line-height:1.7}
+  .intro .hint{margin-top:1.1rem;font-size:.82rem;color:#94a3b8}.intro .hint b{color:var(--coral)}
+
+  .opt-label{position:sticky;top:0;z-index:60;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;padding:.85rem clamp(1.25rem,5vw,4rem);background:var(--ink);color:#fff}
+  .opt-tag{font-family:var(--sora);font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--grad);padding:.34rem .7rem;border-radius:6px}
+  .opt-name{font-family:var(--sora);font-size:1.2rem;font-weight:600}
+  .opt-meta{margin-left:auto;font-size:.74rem;color:#9fb2cc;max-width:48ch}.opt-meta b{color:#7fd6e6;font-weight:600}
+
+  .sec{padding:clamp(3rem,7vw,6rem) clamp(1.5rem,6vw,4rem)}
+  .wrap{max-width:1160px;margin-inline:auto}
+  .sec-head{max-width:62ch;margin-bottom:clamp(2rem,4vw,3.2rem)}
+  .sec-eyebrow{font-family:var(--sora);font-size:.74rem;font-weight:600;letter-spacing:.04em;color:var(--blue-deep);text-transform:uppercase}
+  .sec-h{font-family:var(--sora);font-weight:800;font-size:clamp(1.8rem,1.2rem+2.6vw,3rem);line-height:1.1;letter-spacing:-.02em;margin:.5rem 0 .7rem}
+  .sec-h .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sec-sub{color:var(--slate);font-size:clamp(1rem,.95rem+.2vw,1.12rem);line-height:1.6}
+
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  .stagger>*{opacity:0;transform:translateY(22px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .stagger.in>*{opacity:1;transform:none}
+  .stagger.in>*:nth-child(2){transition-delay:.12s}.stagger.in>*:nth-child(3){transition-delay:.24s}
+  .cta-fill{display:inline-flex;align-items:center;gap:.5rem;background:var(--grad-coral);color:#fff;padding:.85rem 1.5rem;border-radius:12px;font-family:var(--sora);font-weight:600;font-size:.92rem;box-shadow:var(--shadow-sm);margin-top:2rem;transition:transform .3s var(--ease)}
+  .cta-fill:hover{transform:translateY(-2px)}
+
+  /* ===== A — Horizontal numbered + connector ===== */
+  .hsteps{display:grid;gap:1.4rem;grid-template-columns:1fr;position:relative}
+  .hstep{background:#fff;border:1px solid var(--line);border-radius:18px;padding:1.6rem;position:relative}
+  .hstep .num{width:46px;height:46px;border-radius:12px;background:var(--grad);color:#fff;font-family:var(--sora);font-weight:700;font-size:1.2rem;display:grid;place-items:center;margin-bottom:1rem}
+  .hstep h3{font-family:var(--sora);font-size:1.15rem;font-weight:600;margin-bottom:.4rem}
+  .hstep p{color:var(--muted);font-size:.9rem;line-height:1.55}
+  @media(min-width:820px){.hsteps{grid-template-columns:repeat(3,1fr)}
+    .hsteps::before{content:"";position:absolute;top:calc(1.6rem + 23px);left:16%;right:16%;height:2px;background:linear-gradient(90deg,var(--blue),var(--turq));opacity:.4;z-index:0}
+    .hstep{z-index:1}}
+
+  /* ===== B — Vertical alternating timeline ===== */
+  .vtl{position:relative;max-width:880px;margin-inline:auto}
+  .vtl::before{content:"";position:absolute;left:23px;top:0;bottom:0;width:2px;background:linear-gradient(var(--blue),var(--turq));opacity:.35}
+  .vrow{position:relative;padding-left:70px;padding-bottom:2.4rem}
+  .vrow:last-child{padding-bottom:0}
+  .vrow .dot{position:absolute;left:0;top:0;width:48px;height:48px;border-radius:14px;background:var(--grad);color:#fff;font-family:var(--sora);font-weight:700;display:grid;place-items:center;box-shadow:var(--shadow-sm)}
+  .vrow h3{font-family:var(--sora);font-size:1.2rem;font-weight:600;margin-bottom:.35rem}
+  .vrow p{color:var(--muted);font-size:.92rem;line-height:1.6;max-width:48ch}
+  @media(min-width:820px){
+    .vtl::before{left:50%}
+    .vrow{padding-left:0;width:50%}
+    .vrow:nth-child(odd){left:0;padding-right:60px;text-align:right}
+    .vrow:nth-child(even){left:50%;padding-left:60px}
+    .vrow:nth-child(odd) .dot{left:auto;right:-24px}
+    .vrow:nth-child(even) .dot{left:-24px}
+    .vrow:nth-child(odd) p{margin-left:auto}
+  }
+
+  /* ===== C — Big number cards ===== */
+  .bignum{display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+  .bncard{position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;padding:2rem 1.6rem 1.6rem;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s}
+  .bncard:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .bncard .big{font-family:var(--sora);font-weight:800;font-size:4.5rem;line-height:.9;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.9}
+  .bncard h3{font-family:var(--sora);font-size:1.2rem;font-weight:600;margin:.6rem 0 .4rem}
+  .bncard p{color:var(--muted);font-size:.9rem;line-height:1.55}
+  .bncard .ic{position:absolute;top:1.6rem;right:1.6rem;font-size:1.7rem;opacity:.85}
+
+  /* ===== D — Sticky scrollytelling ===== */
+  .scrolly{display:grid;gap:2rem}
+  @media(min-width:900px){.scrolly{grid-template-columns:1fr 1fr;gap:3rem;align-items:start}}
+  .sticky-visual{position:sticky;top:90px;height:min(420px,60vh);border-radius:24px;background:var(--grad);display:grid;place-items:center;overflow:hidden;box-shadow:var(--shadow)}
+  .sticky-visual .glyph{font-size:5rem;transition:transform .5s var(--ease),opacity .5s}
+  .sticky-visual .label{position:absolute;bottom:1.4rem;left:1.6rem;color:#fff;font-family:var(--sora);font-weight:600;opacity:.9}
+  .scrolly-steps{display:flex;flex-direction:column;gap:1rem}
+  .sstep{background:#fff;border:1px solid var(--line);border-radius:18px;padding:1.6rem;transition:border-color .4s var(--ease),box-shadow .4s,transform .4s}
+  .sstep.active{border-color:transparent;box-shadow:var(--shadow);transform:scale(1.01)}
+  .sstep.active::before{content:"";display:block;width:40px;height:3px;border-radius:3px;background:var(--grad);margin-bottom:.9rem}
+  .sstep .n{font-family:var(--sora);font-weight:700;color:var(--blue);font-size:.8rem;letter-spacing:.1em}
+  .sstep h3{font-family:var(--sora);font-size:1.25rem;font-weight:600;margin:.3rem 0 .4rem}
+  .sstep p{color:var(--muted);font-size:.92rem;line-height:1.6}
+
+  /* ===== E — Interactive stepper ===== */
+  .stepper{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden}
+  .estep{border-bottom:1px solid var(--line)}
+  .estep:last-child{border-bottom:0}
+  .ehead{width:100%;display:flex;align-items:center;gap:1rem;padding:1.4rem 1.6rem;cursor:pointer;background:none;border:0;text-align:left;font-family:var(--inter)}
+  .ehead .num{width:40px;height:40px;flex:none;border-radius:11px;background:var(--soft);color:var(--slate);font-family:var(--sora);font-weight:700;display:grid;place-items:center;transition:.3s var(--ease)}
+  .estep.open .ehead .num{background:var(--grad);color:#fff}
+  .ehead h3{font-family:var(--sora);font-size:1.1rem;font-weight:600;flex:1}
+  .ehead .chev{width:10px;height:10px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .3s}
+  .estep.open .ehead .chev{transform:rotate(-135deg)}
+  .ebody{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
+  .ebody .inner{padding:0 1.6rem 1.4rem 5.6rem;color:var(--muted);font-size:.95rem;line-height:1.65}
+  .eprogress{height:3px;background:var(--line)}
+  .eprogress i{display:block;height:100%;background:var(--grad);width:33%;transition:width .4s var(--ease)}
+
+  .notes{background:var(--ink);color:#cdd7e6;padding:clamp(1.4rem,3vw,2rem) clamp(1.5rem,6vw,4rem)}
+  .notes-grid{max-width:1160px;margin-inline:auto;display:grid;gap:1.3rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+  .note h4{font-family:var(--sora);font-weight:700;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:#7fd6e6;margin-bottom:.4rem}
+  .note p{font-size:.85rem;line-height:1.55}.note p b{color:#fff;font-weight:600}
+
+  .foot{padding:clamp(2.5rem,6vw,4.5rem) clamp(1.5rem,6vw,4rem);text-align:center;background:var(--soft)}
+  .foot .verdict{font-family:var(--sora);font-weight:800;font-size:clamp(1.4rem,1rem+2vw,2.2rem);letter-spacing:-.02em;margin-bottom:1rem}
+  .foot .verdict .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .foot p{color:var(--muted);max-width:62ch;margin:.4rem auto;font-size:.92rem;line-height:1.7}.foot p b{color:var(--coral)}
+
+  @media (max-width:760px){.opt-meta{display:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}.rv,.stagger>*{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+  <header class="intro">
+    <div class="kicker">POLICITY · Sektion 4 · So funktioniert's</div>
+    <h1>Wie zeigen wir den <span class="g">Ablauf?</span></h1>
+    <p>Fünf Layouts für den 3-Schritt-Prozess (Bedarf erfassen → unabhängig vergleichen → digital abschließen). Alle live: reinscrollen für Reveals, bei D/E mitscrollen bzw. klicken.</p>
+    <div class="hint">Platzhalter-Daten · Sora/Inter via Bunny (EU/DSGVO)<span style="margin:0 .6rem">·</span>Wähle mit <b>„Weiter / Option X"</b></div>
+  </header>
+
+  <!-- A -->
+  <div class="opt-label"><span class="opt-tag">Option A</span><span class="opt-name">Horizontal · 3 Schritte mit Verbindungslinie</span>
+    <span class="opt-meta">Drei nummerierte Karten nebeneinander, durch Linie verbunden · <b>klar, klassisch, sofort verständlich.</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">In 3 Schritten</div>
+      <h2 class="sec-h">In Minuten zum <span class="g">passenden Schutz.</span></h2>
+      <p class="sec-sub">Kein Papierkram, kein Fachchinesisch — wir machen Absicherung so einfach wie eine App.</p></div>
+    <div class="hsteps stagger">
+      <div class="hstep"><div class="num">1</div><h3>Bedarf erfassen</h3><p>Erzähl uns in 3 Minuten online, was dir wichtig ist — ganz ohne Verpflichtung.</p></div>
+      <div class="hstep"><div class="num">2</div><h3>Unabhängig vergleichen</h3><p>Wir prüfen den Marktausschnitt und erklären dir jede Option in Klartext.</p></div>
+      <div class="hstep"><div class="num">3</div><h3>Digital abschließen</h3><p>Persönliche Beratung und papierloser Abschluss — wann immer es dir passt.</p></div>
+    </div>
+    <a class="cta-fill">Jetzt starten →</a>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p>Maximale Klarheit, <b>niedrigste kognitive Last</b>. Die Verbindungslinie erzählt „Schritt für Schritt".</p></div>
+    <div class="note"><h4>Animation</h4><p>Karten staffeln ein; Linie kann beim Scroll von links „durchlaufen". Nummern in Gradient.</p></div>
+    <div class="note"><h4>Responsive</h4><p>3 nebeneinander → gestapelt; Linie nur ab Tablet. Schema: <code>HowTo</code> möglich.</p></div>
+  </div></div>
+
+  <!-- B -->
+  <div class="opt-label"><span class="opt-tag">Option B</span><span class="opt-name">Vertikale Zickzack-Timeline</span>
+    <span class="opt-meta">Schritte alternierend links/rechts an einer Mittellinie · <b>storytelling, premium, ausführlich.</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv" style="text-align:center;margin-inline:auto"><div class="sec-eyebrow">Dein Weg mit uns</div>
+      <h2 class="sec-h">So begleiten <span class="g">wir dich.</span></h2></div>
+    <div class="vtl stagger">
+      <div class="vrow"><div class="dot">1</div><h3>Bedarf erfassen</h3><p>Erzähl uns online in 3 Minuten, was du absichern willst — unverbindlich.</p></div>
+      <div class="vrow"><div class="dot">2</div><h3>Unabhängig vergleichen</h3><p>Wir prüfen den Marktausschnitt transparent und erklären jede Option in Klartext.</p></div>
+      <div class="vrow"><div class="dot">3</div><h3>Digital abschließen</h3><p>Persönliche Beratung und papierloser Abschluss — bequem von zuhause.</p></div>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p><b>Erzählerisch &amp; hochwertig</b>. Gut, wenn jeder Schritt etwas mehr Text/Vertrauen braucht.</p></div>
+    <div class="note"><h4>Animation</h4><p>Reihen gleiten abwechselnd von links/rechts ein, Linie zeichnet sich von oben.</p></div>
+    <div class="note"><h4>Responsive</h4><p>Zickzack → einspaltige Timeline links. Sehr mobil-freundlich.</p></div>
+  </div></div>
+
+  <!-- C -->
+  <div class="opt-label"><span class="opt-tag">Option C</span><span class="opt-name">Große Ziffern-Karten</span>
+    <span class="opt-meta">XXL-Gradient-Ziffern 01/02/03 als visueller Anker · <b>bold, modern, plakativ.</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">Einfach in 3 Schritten</div>
+      <h2 class="sec-h">Schneller, als du <span class="g">denkst.</span></h2></div>
+    <div class="bignum stagger">
+      <div class="bncard"><span class="ic">📝</span><div class="big">01</div><h3>Bedarf erfassen</h3><p>3-Minuten-Check online — sag uns, was zählt. Unverbindlich.</p></div>
+      <div class="bncard"><span class="ic">🔎</span><div class="big">02</div><h3>Unabhängig vergleichen</h3><p>Wir prüfen den Marktausschnitt und übersetzen das Kleingedruckte.</p></div>
+      <div class="bncard"><span class="ic">✅</span><div class="big">03</div><h3>Digital abschließen</h3><p>Beratung + papierloser Abschluss, wann es dir passt.</p></div>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p><b>Plakativ &amp; selbstbewusst</b>. Die großen Ziffern geben Rhythmus und Wiedererkennung.</p></div>
+    <div class="note"><h4>Animation</h4><p>Karten-Lift on Hover, Stagger-Reveal; Ziffern können beim Reveal hochzählen.</p></div>
+    <div class="note"><h4>Responsive</h4><p><code>auto-fit minmax(280px)</code> → 3→1. Robust auf allen Breiten.</p></div>
+  </div></div>
+
+  <!-- D -->
+  <div class="opt-label"><span class="opt-tag">Option D</span><span class="opt-name">Sticky Scrollytelling</span>
+    <span class="opt-meta">Links sticky-Visual, rechts scrollende Schritte — <b>aktiver Schritt steuert das Visual</b> (premium, „App-Demo").</span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">Mitscrollen</div>
+      <h2 class="sec-h">Erlebe den <span class="g">Ablauf.</span></h2>
+      <p class="sec-sub">Scrolle langsam durch die Schritte — das Visual links reagiert mit.</p></div>
+    <div class="scrolly">
+      <div class="sticky-visual"><span class="glyph" id="glyphD">📝</span><span class="label" id="labelD">Schritt 1 · Bedarf erfassen</span></div>
+      <div class="scrolly-steps">
+        <div class="sstep active" data-glyph="📝" data-label="Schritt 1 · Bedarf erfassen"><span class="n">SCHRITT 1</span><h3>Bedarf erfassen</h3><p>Erzähl uns in 3 Minuten online, was du absichern willst — unverbindlich und in deiner Sprache.</p></div>
+        <div class="sstep" data-glyph="🔎" data-label="Schritt 2 · Vergleichen"><span class="n">SCHRITT 2</span><h3>Unabhängig vergleichen</h3><p>Wir prüfen den Marktausschnitt und erklären dir jede Option verständlich — ohne Verkaufsdruck.</p></div>
+        <div class="sstep" data-glyph="✅" data-label="Schritt 3 · Abschließen"><span class="n">SCHRITT 3</span><h3>Digital abschließen</h3><p>Persönliche Beratung und papierloser Abschluss — sicher und bequem von zuhause.</p></div>
+      </div>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p><b>Premium &amp; modern</b> (Apple-Style Scrollytelling). Wirkt wie eine interaktive Produkt-Demo.</p></div>
+    <div class="note"><h4>Animation</h4><p>Sticky-Visual wechselt Glyph/Label je aktivem Schritt (IntersectionObserver). In React mit Framer Motion.</p></div>
+    <div class="note"><h4>Responsive</h4><p>Zwei Spalten → gestapelt (Visual oben, Schritte darunter), kein Sticky-Zwang auf Mobile.</p></div>
+  </div></div>
+
+  <!-- E -->
+  <div class="opt-label"><span class="opt-tag">Option E</span><span class="opt-name">Interaktiver Stepper (Accordion)</span>
+    <span class="opt-meta">Aufklappbare Schritte mit Fortschrittsbalken · <b>kompakt, interaktiv, platzsparend.</b></span></div>
+  <section class="sec"><div class="wrap">
+    <div class="sec-head rv"><div class="sec-eyebrow">Schritt für Schritt</div>
+      <h2 class="sec-h">Klick dich <span class="g">durch.</span></h2>
+      <p class="sec-sub">Öffne einen Schritt für Details — der Fortschrittsbalken zeigt, wo du bist.</p></div>
+    <div class="stepper rv" id="stepperE">
+      <div class="eprogress"><i id="eprogE"></i></div>
+      <div class="estep open"><button class="ehead"><span class="num">1</span><h3>Bedarf erfassen</h3><span class="chev"></span></button>
+        <div class="ebody"><div class="inner">Erzähl uns in 3 Minuten online, was du absichern willst — unverbindlich. Schon ein paar Angaben genügen, damit wir gezielt für dich prüfen können.</div></div></div>
+      <div class="estep"><button class="ehead"><span class="num">2</span><h3>Unabhängig vergleichen</h3><span class="chev"></span></button>
+        <div class="ebody"><div class="inner">Wir prüfen den Marktausschnitt und erklären dir jede relevante Option in Klartext — transparent, welche Anbieter wir verglichen haben.</div></div></div>
+      <div class="estep"><button class="ehead"><span class="num">3</span><h3>Digital abschließen</h3><span class="chev"></span></button>
+        <div class="ebody"><div class="inner">Persönliche Beratung und papierloser Abschluss — sicher, schnell und wann es dir passt. Auf Wunsch begleiten wir dich auch danach.</div></div></div>
+    </div>
+  </div></section>
+  <div class="notes"><div class="notes-grid">
+    <div class="note"><h4>Vibe</h4><p><b>Kompakt &amp; interaktiv</b>. Spart vertikalen Platz, lädt zum Erkunden ein.</p></div>
+    <div class="note"><h4>Animation</h4><p>Smooth Aufklappen (height), Fortschrittsbalken füllt mit Schritt, Chevron dreht.</p></div>
+    <div class="note"><h4>Responsive</h4><p>Voll mobil-tauglich; ein offener Schritt zur Zeit. Touch-Ziele groß.</p></div>
+  </div></div>
+
+  <footer class="foot">
+    <div class="verdict">Welcher <span class="g">Ablauf?</span></div>
+    <p>Empfehlung: <b>Option A</b> für klare, conversionssichere Übersicht · <b>Option D (Scrollytelling)</b> für den „Wow"-Premium-Effekt, der zur App-DNA von POLICITY passt · <b>Option C</b> als plakative Alternative. <b>B</b> erzählerisch, <b>E</b> kompakt-interaktiv.</p>
+    <p style="font-size:.74rem;color:#94a3b8;margin-top:1.4rem">In Produktion: <b>HowTo-Schema</b> möglich · answer-first Schritt-Texte.</p>
+  </footer>
+
+<script>
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.18});
+  document.querySelectorAll('.rv,.stagger').forEach(function(el){io.observe(el);});
+
+  // D scrollytelling
+  (function(){var g=document.getElementById('glyphD'),l=document.getElementById('labelD');if(!g)return;
+    var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      document.querySelectorAll('.sstep').forEach(s=>s.classList.remove('active'));e.target.classList.add('active');
+      g.style.opacity=0;setTimeout(function(){g.textContent=e.target.dataset.glyph;l.textContent=e.target.dataset.label;g.style.opacity=1;},150);
+    }});},{rootMargin:'-45% 0px -45% 0px',threshold:0});
+    document.querySelectorAll('.sstep').forEach(s=>obs.observe(s));})();
+
+  // E stepper
+  (function(){var steps=[].slice.call(document.querySelectorAll('#stepperE .estep'));var bar=document.getElementById('eprogE');
+    function setBody(s){var b=s.querySelector('.ebody');b.style.maxHeight=s.classList.contains('open')?b.querySelector('.inner').scrollHeight+'px':'0px';}
+    steps.forEach(function(s,i){setBody(s);s.querySelector('.ehead').addEventListener('click',function(){
+      var willOpen=!s.classList.contains('open');steps.forEach(function(x){x.classList.remove('open');setBody(x);});
+      if(willOpen){s.classList.add('open');setBody(s);}bar.style.width=((i+1)/steps.length*100)+'%';});});
+    bar.style.width=(1/steps.length*100)+'%';})();
+</script>
+</body>
+</html>
