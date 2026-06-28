@@ -23,14 +23,51 @@ export const site = {
   },
 } as const;
 
-// Versicherungs-Sparten fürs Mega-Menü (Themen-Segmentierung, Branche-24).
+// Versicherungs-Sparten (Themen-Segmentierung, Branche-24).
+// desc = Kurzlabel (Mega-Menü) · blurb = answer-first Ein-Satz-Erklärung (Sparten-Sektion/GEO).
 export const sparten = [
-  { icon: "🚗", title: "Kfz", desc: "Auto & Motorrad", href: "/versicherungen/kfz" },
-  { icon: "🏠", title: "Hausrat", desc: "Zuhause schützen", href: "/versicherungen/hausrat" },
-  { icon: "⚖️", title: "Haftpflicht", desc: "Privat & Familie", href: "/versicherungen/haftpflicht" },
-  { icon: "🦷", title: "Zahn", desc: "Zusatzschutz", href: "/versicherungen/zahn" },
-  { icon: "🛡️", title: "BU", desc: "Berufsunfähigkeit", href: "/versicherungen/bu" },
-  { icon: "✈️", title: "Reise", desc: "Weltweit sorglos", href: "/versicherungen/reise" },
+  {
+    icon: "🛡️",
+    title: "Berufsunfähigkeit",
+    desc: "Einkommen absichern",
+    blurb: "Dein wichtigster Schutz: sichert dein Einkommen, wenn die Gesundheit nicht mitspielt.",
+    href: "/versicherungen/bu",
+  },
+  {
+    icon: "🚗",
+    title: "Kfz",
+    desc: "Auto & Motorrad",
+    blurb: "Fairer Schutz für Auto & Motorrad — transparent verglichen, schnell gewechselt.",
+    href: "/versicherungen/kfz",
+  },
+  {
+    icon: "🏠",
+    title: "Hausrat",
+    desc: "Zuhause schützen",
+    blurb: "Hab und Gut zuhause — abgesichert gegen Feuer, Einbruch und Leitungswasser.",
+    href: "/versicherungen/hausrat",
+  },
+  {
+    icon: "⚖️",
+    title: "Haftpflicht",
+    desc: "Privat & Familie",
+    blurb: "Der Alltags-Klassiker: schützt dich und deine Familie vor teuren Missgeschicken.",
+    href: "/versicherungen/haftpflicht",
+  },
+  {
+    icon: "🦷",
+    title: "Zahn",
+    desc: "Zusatzschutz",
+    blurb: "Zusatzschutz für Zahnersatz, Prophylaxe und Kieferorthopädie.",
+    href: "/versicherungen/zahn",
+  },
+  {
+    icon: "✈️",
+    title: "Reise",
+    desc: "Weltweit sorglos",
+    blurb: "Weltweit sorglos unterwegs — mit Auslandskrankenschutz, Storno und Gepäck.",
+    href: "/versicherungen/reise",
+  },
 ] as const;
 
 // Hauptnavigation
