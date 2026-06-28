@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --grad: linear-gradient(135deg, #1d6ff2, #06b6d4);
+  --grad-coral: linear-gradient(135deg, #ff8a5e, #ff6b5e);
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-soft text-ink font-sans antialiased;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: #1d6ff2;
+    color: #fff;
+  }
+  /* Sichtbarer Fokus-Ring (WCAG) — niemals entfernen */
+  :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(29, 111, 242, 0.45);
+    border-radius: 8px;
+  }
+}
+
+@layer utilities {
+  .grad {
+    background-image: var(--grad);
+  }
+  .grad-coral {
+    background-image: var(--grad-coral);
+  }
+  .text-grad {
+    background-image: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
